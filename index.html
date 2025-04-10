@@ -40,11 +40,16 @@
       background-color: #FFD700;
       color: Black;
     }
-    .gallery-title {
+    .section {
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    .section-title {
       text-align: center;
       font-size: 1.5rem;
       color: white;
-      margin: 2rem 0 1rem;
+      margin-bottom: 1rem;
     }
     .image-box {
       background: black;
@@ -95,27 +100,38 @@
     <h1>Welcome to Mongolian Nomadic Travel</h1>
     <p>Explore Mongolia with us!</p>
     <div class="nav-buttons">
-      <a href="#">Home</a>
+      <a href="#gallery">Gallery</a>
       <a href="#tours">Tours</a>
       <a href="#contact">Contact</a>
     </div>
-  </div>
-  <h2 class="gallery-title" id="tours">Gallery</h2>
-  <div class="image-box">
-    <img src="horse.jpg" alt="Horse Adventure">
-  </div>
-  <div class="rating">
-    <div class="stars">
-      <span>&#9733;</span>
-      <span>&#9733;</span>
-      <span>&#9733;</span>
-      <span>&#9733;</span>
-      <span>&#9733;</span>
+  </div>  <section class="section" id="gallery">
+    <h2 class="section-title">Gallery</h2>
+    <div class="image-box">
+      <img src="gobi-tour.jpg" alt="Gobi Tour">
     </div>
-    <button class="submit-button" onclick="submitRating()">Submit Rating</button>
-    <p id="thanks" style="color: white; display: none;">Thanks!</p>
-  </div>
-  <div class="footer" id="contact">
+    <div class="image-box">
+      <img src="nature.jpg" alt="Mongolian Nature">
+    </div>
+  </section>  <section class="section" id="tours">
+    <h2 class="section-title">Tours</h2>
+    <div class="image-box">
+      <img src="horse.jpg" alt="Horse Adventure">
+    </div>
+    <div class="image-box">
+      <img src="ice_tour.jpg" alt="Ice Tour">
+    </div>
+    <div class="rating">
+      <div class="stars">
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+        <span>&#9733;</span>
+      </div>
+      <button class="submit-button" onclick="submitRating()">Submit Rating</button>
+      <p id="thanks" style="color: white; display: none;">Thanks!</p>
+    </div>
+  </section>  <div class="footer" id="contact">
     Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
   </div>  <script>
     const stars = document.querySelectorAll('.stars span');
