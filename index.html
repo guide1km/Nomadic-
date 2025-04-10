@@ -1,101 +1,128 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nomadic Adventure Tours</title>
   <style>
     body {
       font-family: sans-serif;
       margin: 0;
       background-color: #000;
-      color: white;
     }
     .hero {
       background-color: #0c5e31;
+      color: white;
       text-align: center;
       padding: 2rem 1rem;
     }
     .hero img {
       width: 100px;
-      margin-bottom: 1rem;
+      height: auto;
     }
     .nav-buttons {
       display: flex;
       justify-content: center;
       gap: 1rem;
-      margin-top: 1rem;
+      margin: 1rem 0;
     }
-    .nav-buttons button {
+    .nav-buttons a {
       padding: 0.5rem 1rem;
       background-color: white;
-      color: #28a745;
-      border: 2px solid #fff;
-      border-radius: 8px;
+      color: #0c5e31;
+      text-decoration: none;
       font-weight: bold;
+      border-radius: 8px;
+    }
+    .lang-toggle {
+      margin-top: 1rem;
+    }
+    .lang-toggle button {
+      margin: 0 0.5rem;
+      padding: 0.3rem 0.8rem;
+      border: none;
+      background-color: white;
+      color: #0c5e31;
+      font-weight: bold;
+      border-radius: 5px;
       cursor: pointer;
     }
-    .section {
-      display: none;
-      padding: 1rem;
+    .gallery-title {
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+    .image-box {
       max-width: 600px;
       margin: 1rem auto;
-      background: #111;
-      border-radius: 10px;
-    }
-    .section.active {
-      display: block;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: black;
     }
     .image-box img {
       width: 100%;
-      border-radius: 10px;
+      display: block;
     }
   </style>
 </head>
 <body>
   <div class="hero">
-    <img src="logo.png" alt="Logo" />
-    <h1>Nomadic Adventure Tours</h1>
-    <div class="nav-buttons">
-      <button onclick="showSection('home')">Home</button>
-      <button onclick="showSection('tours')">Tours</button>
-      <button onclick="showSection('contact')">Contact</button>
-    </div>
-  </div>  <div id="home" class="section active">
-    <h2>Welcome</h2>
-    <p>Discover Mongolia with us!</p>
-    <div class="image-box"><img src="nature.jpg" alt="Nature"></div>
-    <div class="image-box"><img src="horse.jpg" alt="Horse"></div>
-    <div class="image-box"><img src="gobi-tour.jpg" alt="Gobi"></div>
-  </div>  <div id="tours" class="section">
-    <h2>Tours</h2>
-    <div class="image-box"><img src="logo.png" alt="Tour Logo"></div>
-    <div class="image-box"><img src="ice_tour.jpg" alt="Ice Tour"></div>
-    <p>Rate this tour:</p>
-    <div class="rating">
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
-    </div>
-    <textarea rows="3" cols="40" placeholder="Write a comment..."></textarea>
-    <br><button onclick="alert('Thanks for your feedback!')">Submit</button>
-  </div>  <div id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>Phone: +976-12345678</p>
-    <p>Email: info@nomadic.mn</p>
-  </div>  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+    <img src="logo.png" alt="Nomadic Logo">
+    <h1 id="welcome-title">Welcome</h1>
+    <p id="desc">Discover Mongolia with us!</p><div class="nav-buttons">
+  <a id="btn-home" href="#home">Home</a>
+  <a id="btn-tours" href="#tours">Tours</a>
+  <a id="btn-contact" href="#contact">Contact</a>
+</div>
 
-    function rate(el) {
-      const stars = el.parentElement.querySelectorAll('span');
-      let index = Array.from(stars).indexOf(el);
-      stars.forEach((star, i) => {
-        star.style.color = i <= index ? 'gold' : '#ccc';
-      });
+<div class="lang-toggle">
+  <button onclick="setLang('en')">EN</button>
+  <button onclick="setLang('mn')">MN</button>
+</div>
+
+  </div>  <h2 class="gallery-title" id="home">Gallery</h2>
+  <div class="image-box">
+    <img src="nature.jpg" alt="Nature">
+  </div>
+  <div class="image-box">
+    <img src="horse.jpg" alt="Horse">
+  </div>
+  <div class="image-box">
+    <img src="gobi-tour.jpg" alt="Gobi">
+  </div>  <h2 class="gallery-title" id="tours">Tours</h2>
+  <div class="image-box">
+    <img src="logo.png" alt="Logo">
+  </div>
+  <div class="image-box">
+    <img src="ice_tour.jpg" alt="Ice Tour">
+  </div>  <h2 class="gallery-title" id="contact">Contact</h2>
+  <div style="text-align:center; color:white; padding: 1rem;">
+    <p>Phone: +976-88112233</p>
+    <p>Email: <a href="mailto:info@nomadic.mn" style="color: #FFD700">info@nomadic.mn</a></p>
+  </div>  <script>
+    const texts = {
+      en: {
+        welcome: "Welcome",
+        desc: "Discover Mongolia with us!",
+        home: "Home",
+        tours: "Tours",
+        contact: "Contact"
+      },
+      mn: {
+        welcome: "Тавтай морил",
+        desc: "Монгол орноор аялцгаая!",
+        home: "Нүүр",
+        tours: "Аяллууд",
+        contact: "Холбогдох"
+      }
+    };
+
+    function setLang(lang) {
+      document.getElementById("welcome-title").textContent = texts[lang].welcome;
+      document.getElementById("desc").textContent = texts[lang].desc;
+      document.getElementById("btn-home").textContent = texts[lang].home;
+      document.getElementById("btn-tours").textContent = texts[lang].tours;
+      document.getElementById("btn-contact").textContent = texts[lang].contact;
     }
   </script></body>
 </html>
