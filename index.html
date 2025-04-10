@@ -4,10 +4,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nomadic Adventure Tours</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: sans-serif;
       margin: 0;
-      background-color: #000;
+      background-color: #000000;
       color: white;
     }
     .hero {
@@ -18,36 +21,53 @@
     .hero img {
       width: 100px;
       height: auto;
+      margin-bottom: 1rem;
     }
-    nav {
-      background-color: white;
+    .nav-buttons {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      padding: 1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
     }
-    nav a {
-      text-decoration: none;
+    .nav-buttons a, .nav-buttons button {
+      padding: 0.5rem 1rem;
+      background-color: white;
       color: #28a745;
+      text-decoration: none;
       font-weight: bold;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+      cursor: pointer;
     }
-    h2 {
+    .nav-buttons a:hover, .nav-buttons button:hover {
+      background-color: #FFD700;
+      color: black;
+    }
+    section {
+      padding-top: 4rem;
+    }
+    .gallery-title, .section-title {
       text-align: center;
-      color: yellow;
+      font-size: 1.5rem;
+      color: white;
+      margin: 2rem 0 1rem;
     }
-    .section {
+    .image-box {
+      background: black;
       max-width: 600px;
-      margin: 2rem auto;
-      background: #111;
-      border-radius: 10px;
+      margin: 1rem auto;
+      border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    .section img {
+    .image-box img {
       width: 100%;
+      height: auto;
       display: block;
     }
-    .rating {
+    .rating, .contact {
       text-align: center;
       margin-top: 1rem;
     }
@@ -59,64 +79,57 @@
     .stars span.selected {
       color: gold;
     }
-    .comment-box {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .comment-box textarea {
-      width: 80%;
-      padding: 0.5rem;
-      border-radius: 5px;
-    }
     .submit-button {
-      margin: 1rem auto;
-      display: block;
+      margin-top: 1rem;
       padding: 0.5rem 1rem;
+      font-size: 1rem;
       background-color: #28a745;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
     }
     .footer {
       text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
       background: #eee;
       color: black;
-      padding: 1rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-  <div class="hero">
-    <img src="logo.png" alt="Logo">
+  <div class="hero" id="home">
+    <img src="logo.png" alt="Nomadic Logo" />
     <h1>Nomadic Adventure Tours</h1>
-  </div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#tours">Tours</a>
-    <a href="#contact">Contact</a>
-  </nav>  <div id="home">
-    <h2>Welcome</h2>
-    <div class="section"><img src="nature.jpg" alt="Nature"></div>
-    <div class="section"><img src="horse.jpg" alt="Horse"></div>
-    <div class="section"><img src="gobi-tour.jpg" alt="Gobi"></div>
-  </div>  <div id="tours">
-    <h2>Tours</h2>
-    <div class="section"><img src="logo.png" alt="Logo"></div>
-    <div class="section"><img src="ice_tour.jpg" alt="Ice Tour"></div>
+    <div class="nav-buttons">
+      <a href="#home">Home</a>
+      <a href="#tours">Tours</a>
+      <a href="#contact">Contact</a>
+      <button onclick="setLang('en')">EN</button>
+      <button onclick="setLang('mn')">MN</button>
+    </div>
+  </div>  <section id="gallery">
+    <h2 class="gallery-title">Gallery</h2>
+    <div class="image-box"><img src="nature.jpg" alt="Nature"></div>
+    <div class="image-box"><img src="horse.jpg" alt="Horse"></div>
+    <div class="image-box"><img src="gobi-tour.jpg" alt="Gobi"></div>
+  </section>  <section id="tours">
+    <h2 class="section-title">Tours</h2>
+    <div class="image-box"><img src="ice_tour.jpg" alt="Ice Tour"></div>
     <div class="rating">
       <div class="stars">
         <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
       </div>
-      <div class="comment-box">
-        <textarea rows="3" placeholder="Write your comment..."></textarea>
-      </div>
-      <button class="submit-button" onclick="submitRating()">Submit</button>
-      <p id="thanks" style="display:none">Thanks for your feedback!</p>
+      <textarea placeholder="Your comment..." rows="3" style="width: 80%; margin-top: 1rem;"></textarea>
+      <br />
+      <button class="submit-button" onclick="submitRating()">Submit Rating</button>
+      <p id="thanks" style="display: none;">Thanks!</p>
     </div>
-  </div>  <div id="contact" class="footer">
-    <p>Phone: +976-99119911</p>
-    <p>Email: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a></p>
-  </div>  <script>
+  </section>  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p class="contact">Phone: +976-99112233<br>Email: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a></p>
+  </section>  <div class="footer">&copy; 2025 Nomadic Adventure</div>  <script>
     const stars = document.querySelectorAll('.stars span');
     let selectedRating = 0;
 
@@ -132,6 +145,28 @@
     function submitRating() {
       if (selectedRating > 0) {
         document.getElementById('thanks').style.display = 'block';
+      }
+    }
+
+    function setLang(lang) {
+      if (lang === 'mn') {
+        document.querySelector('h1').innerText = 'Аялагчдын аялал';
+        document.querySelectorAll('.nav-buttons a')[0].innerText = 'Нүүр';
+        document.querySelectorAll('.nav-buttons a')[1].innerText = 'Аялал';
+        document.querySelectorAll('.nav-buttons a')[2].innerText = 'Холбоо';
+        document.querySelector('.gallery-title').innerText = 'Галерей';
+        document.querySelector('.section-title').innerText = 'Аялал';
+        document.querySelector('.submit-button').innerText = 'Үнэлгээ илгээх';
+        document.getElementById('thanks').innerText = 'Баярлалаа!';
+      } else {
+        document.querySelector('h1').innerText = 'Nomadic Adventure Tours';
+        document.querySelectorAll('.nav-buttons a')[0].innerText = 'Home';
+        document.querySelectorAll('.nav-buttons a')[1].innerText = 'Tours';
+        document.querySelectorAll('.nav-buttons a')[2].innerText = 'Contact';
+        document.querySelector('.gallery-title').innerText = 'Gallery';
+        document.querySelector('.section-title').innerText = 'Tours';
+        document.querySelector('.submit-button').innerText = 'Submit Rating';
+        document.getElementById('thanks').innerText = 'Thanks!';
       }
     }
   </script></body>
