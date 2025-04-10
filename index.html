@@ -4,14 +4,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nomadic Adventure Tours</title>
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
     body {
       font-family: sans-serif;
       margin: 0;
       background-color: #000;
-      color: #fff;
+      color: white;
     }
     .hero {
       background-color: #0c5e31;
@@ -20,156 +17,85 @@
     }
     .hero img {
       width: 100px;
-      height: auto;
       margin-bottom: 1rem;
-    }
-    .lang-buttons {
-      text-align: right;
-      margin-right: 1rem;
-    }
-    .lang-buttons button {
-      margin-left: 0.5rem;
-      padding: 0.3rem 0.6rem;
-      font-weight: bold;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
     }
     .nav-buttons {
       display: flex;
       justify-content: center;
       gap: 1rem;
-      background-color: #fff;
-      padding: 1rem;
+      margin-top: 1rem;
     }
-    .nav-buttons a {
-      text-decoration: none;
+    .nav-buttons button {
       padding: 0.5rem 1rem;
       background-color: white;
       color: #28a745;
-      font-weight: bold;
-      border: 2px solid #28a745;
+      border: 2px solid #fff;
       border-radius: 8px;
-      transition: background-color 0.3s, color 0.3s;
+      font-weight: bold;
+      cursor: pointer;
     }
-    .nav-buttons a:hover {
-      background-color: #FFD700;
-      color: black;
-    }
-    section {
-      padding: 2rem;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 1.8rem;
-      color: yellow;
-      margin-bottom: 1rem;
-    }
-    .image-box {
-      background: black;
+    .section {
+      display: none;
+      padding: 1rem;
       max-width: 600px;
       margin: 1rem auto;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background: #111;
+      border-radius: 10px;
+    }
+    .section.active {
+      display: block;
     }
     .image-box img {
       width: 100%;
-      height: auto;
-      display: block;
-    }
-    .rating {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .stars span {
-      font-size: 2rem;
-      cursor: pointer;
-      color: #ccc;
-    }
-    .stars span.selected {
-      color: gold;
-    }
-    .submit-button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-    }
-    .footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background: #eee;
-      color: black;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="lang-buttons">
-    <button onclick="changeLang('en')">EN</button>
-    <button onclick="changeLang('mn')">MN</button>
-  </div>  <div class="hero" id="home">
-    <img src="logo.png" alt="Nomadic Logo">
+  <div class="hero">
+    <img src="logo.png" alt="Logo" />
     <h1>Nomadic Adventure Tours</h1>
-    <p>Welcome to the adventure!</p>
-  </div>  <div class="nav-buttons">
-    <a href="#home">Home</a>
-    <a href="#tours">Tours</a>
-    <a href="#contact">Contact</a>
-  </div>  <section id="gallery">
-    <h2 class="section-title">Gallery</h2>
-    <div class="image-box">
-      <img src="nature.jpg" alt="Nature">
+    <div class="nav-buttons">
+      <button onclick="showSection('home')">Home</button>
+      <button onclick="showSection('tours')">Tours</button>
+      <button onclick="showSection('contact')">Contact</button>
     </div>
-    <div class="image-box">
-      <img src="horse.jpg" alt="Horse">
-    </div>
-    <div class="image-box">
-      <img src="gobi-tour.jpg" alt="Gobi Tour">
-    </div>
-  </section>  <section id="tours">
-    <h2 class="section-title">Tours</h2>
-    <div class="image-box">
-      <img src="ice_tour.jpg" alt="Ice Tour">
-    </div>
+  </div>  <div id="home" class="section active">
+    <h2>Welcome</h2>
+    <p>Discover Mongolia with us!</p>
+    <div class="image-box"><img src="nature.jpg" alt="Nature"></div>
+    <div class="image-box"><img src="horse.jpg" alt="Horse"></div>
+    <div class="image-box"><img src="gobi-tour.jpg" alt="Gobi"></div>
+  </div>  <div id="tours" class="section">
+    <h2>Tours</h2>
+    <div class="image-box"><img src="logo.png" alt="Tour Logo"></div>
+    <div class="image-box"><img src="ice_tour.jpg" alt="Ice Tour"></div>
+    <p>Rate this tour:</p>
     <div class="rating">
-      <div class="stars">
-        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-      </div>
-      <textarea rows="3" placeholder="Write your comment..."></textarea><br>
-      <button class="submit-button" onclick="submitRating()">Submit</button>
-      <p id="thanks" style="display:none; color:white;">Thanks!</p>
+      <span onclick="rate(this)">&#9733;</span>
+      <span onclick="rate(this)">&#9733;</span>
+      <span onclick="rate(this)">&#9733;</span>
+      <span onclick="rate(this)">&#9733;</span>
+      <span onclick="rate(this)">&#9733;</span>
     </div>
-  </section>  <section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <p style="text-align: center;">Phone: +976-99119911<br>Email: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a></p>
-  </section>  <div class="footer">
-    &copy; 2025 Nomadic Adventure Tours
+    <textarea rows="3" cols="40" placeholder="Write a comment..."></textarea>
+    <br><button onclick="alert('Thanks for your feedback!')">Submit</button>
+  </div>  <div id="contact" class="section">
+    <h2>Contact Us</h2>
+    <p>Phone: +976-12345678</p>
+    <p>Email: info@nomadic.mn</p>
   </div>  <script>
-    const stars = document.querySelectorAll('.stars span');
-    let selectedRating = 0;
-
-    stars.forEach((star, index) => {
-      star.addEventListener('click', () => {
-        selectedRating = index + 1;
-        stars.forEach((s, i) => {
-          s.classList.toggle('selected', i < selectedRating);
-        });
-      });
-    });
-
-    function submitRating() {
-      if (selectedRating > 0) {
-        document.getElementById('thanks').style.display = 'block';
-      }
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
 
-    function changeLang(lang) {
-      alert('Language switched to: ' + lang);
+    function rate(el) {
+      const stars = el.parentElement.querySelectorAll('span');
+      let index = Array.from(stars).indexOf(el);
+      stars.forEach((star, i) => {
+        star.style.color = i <= index ? 'gold' : '#ccc';
+      });
     }
   </script></body>
 </html>
