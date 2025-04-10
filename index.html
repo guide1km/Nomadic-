@@ -164,42 +164,65 @@
 const ratingCounts = [0, 0, 0, 0, 0]; // 1 to 5 stars index: 0 to 4
 let totalRatings = 0;
 
-function rate(el) {
-  const stars = el.parentElement.querySelectorAll('span');
-  const index = parseInt(el.getAttribute('data-value'));
-  stars.forEach(star => star.classList.remove('selected'));
-  if (selectedRating === index) {
-    selectedRating = 0;
-  } else {
-    for (let i = 0; i < index; i++) {
-      stars[i].classList.add('selected');
-    }
-    selectedRating = index;
+<script>
+  function showSection(id) {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => section.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
   }
-}
 
-function submitRating() {
-  if (selectedRating > 0) {
-    ratingCounts[selectedRating - 1]++;
-    totalRatings++;
+  let selectedRating = 0;
+  const ratingCounts = [0, 0, 0, 0, 0];
+  let totalRatings = 0;
 
-    const totalScore = ratingCounts.reduce((sum, count, i) => sum + count * (i + 1), 0);
-    const average = (totalScore / totalRatings).toFixed(1);
+  function rate(el) {
+    const stars = el.parentElement.querySelectorAll('span');
+    const index = parseInt(el.getAttribute('data-value'));
+    stars.forEach(star => star.classList.remove('selected'));
 
-    document.getElementById('avg-rating').innerText = average;
-    document.getElementById('review-count').innerText = totalRatings;
-
-    for (let i = 0; i < 5; i++) {
-      const percent = (ratingCounts[4 - i] / totalRatings) * 100;
-      document.getElementById(`bar-${5 - i}`).style.width = percent + '%';
+    if (selectedRating === index) {
+      selectedRating = 0;
+    } else {
+      for (let i = 0; i < index; i++) {
+        stars[i].classList.add('selected');
+      }
+      selectedRating = index;
     }
-
-    document.getElementById('rating-value').style.display = 'block';
-    document.getElementById('rating-value').innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
-    document.getElementById('thanks').style.display = 'block';
   }
-}
 
-  </script>
+  function submitRating() {
+    if (selectedRating > 0) {
+      ratingCounts[selectedRating - 1]++;
+      totalRatings++;
+
+      const totalScore = ratingCounts.reduce((sum, count, i) => sum + count * (i + 1), 0);
+      const average = (totalScore / totalRatings).toFixed(1);
+
+      const avgRatingEl = document.getElementById('avg-rating');
+      const reviewCountEl = document.getElementById('review-count');
+      if (avgRatingEl) avgRatingEl.innerText = average;
+      if (reviewCountEl) reviewCountEl.innerText = totalRatings;
+
+      for (let i = 0; i < 5; i++) {
+        const percent = totalRatings > 0 ? (ratingCounts[4 - i] / totalRatings) * 100 : 0;
+        const bar = document.getElementById(`bar-${5 - i}`);
+        if (bar) bar.style.width = percent + '%';
+      }
+
+      const ratingValueEl = document.getElementById('rating-value');
+      const thanksEl = document.getElementById('thanks');
+
+      if (ratingValueEl) {
+        ratingValueEl.style.display = 'block';
+        ratingValueEl.innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
+      }
+
+      if (thanksEl) {
+        thanksEl.style.display = 'block';
+      }
+    }
+  }
+</script>
 </body>
 </html>
