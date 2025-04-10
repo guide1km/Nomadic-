@@ -2,180 +2,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mongolian Nomadic Travel - Full Site</title>
+  <title>Nomadic Adventure Tours</title>
   <style>
     body {
-      margin: 0;
       font-family: sans-serif;
+      margin: 0;
       background-color: #000;
       color: white;
     }
-    header {
+    .hero {
       background-color: #0c5e31;
       text-align: center;
-      padding: 1.5rem;
-      position: relative;
+      padding: 2rem 1rem;
     }
-    header img {
-      width: 80px;
-    }
-    .lang-switch {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
-    .lang-switch button {
-      margin-left: 0.5rem;
-      padding: 0.3rem 0.6rem;
-      border-radius: 5px;
-      cursor: pointer;
-      background: #fff;
-      border: none;
+    .hero img {
+      width: 100px;
+      height: auto;
     }
     nav {
+      background-color: white;
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      background: white;
-      padding: 0.5rem;
+      gap: 1.5rem;
+      padding: 1rem;
     }
     nav a {
+      text-decoration: none;
       color: #28a745;
       font-weight: bold;
-      text-decoration: none;
-    }
-    nav a:hover {
-      color: #FFD700;
-    }
-    section {
-      padding: 2rem 1rem;
-      max-width: 960px;
-      margin: auto;
     }
     h2 {
       text-align: center;
-      color: #FFD700;
+      color: yellow;
     }
-    .tour-category, .team-member, .certificate, .faq-item {
+    .section {
+      max-width: 600px;
+      margin: 2rem auto;
       background: #111;
-      padding: 1rem;
-      margin: 1rem 0;
       border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(255,255,255,0.1);
     }
-    .gallery img, .tour-category img, .team-member img, .certificate img {
+    .section img {
       width: 100%;
-      border-radius: 8px;
+      display: block;
     }
-    .form-group {
-      margin-bottom: 1rem;
+    .rating {
+      text-align: center;
+      margin-top: 1rem;
     }
-    .form-group input, .form-group textarea {
-      width: 100%;
+    .stars span {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.selected {
+      color: gold;
+    }
+    .comment-box {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .comment-box textarea {
+      width: 80%;
       padding: 0.5rem;
       border-radius: 5px;
-      border: none;
     }
-    button {
-      background: #28a745;
+    .submit-button {
+      margin: 1rem auto;
+      display: block;
+      padding: 0.5rem 1rem;
+      background-color: #28a745;
       color: white;
       border: none;
-      padding: 0.7rem 1.5rem;
       border-radius: 5px;
-      cursor: pointer;
     }
-    footer {
+    .footer {
       text-align: center;
-      background: #222;
-      color: white;
+      background: #eee;
+      color: black;
       padding: 1rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Logo" />
-    <h1 class="lang" data-en="Nomadic Adventure Tours" data-mn="Нүүдлийн Адал Явдалт Аялал">Nomadic Adventure Tours</h1>
-    <div class="lang-switch">
-      <button onclick="setLanguage('en')">English</button>
-      <button onclick="setLanguage('mn')">Монгол</button>
-    </div>
-  </header>
+  <div class="hero">
+    <img src="logo.png" alt="Logo">
+    <h1>Nomadic Adventure Tours</h1>
+  </div>
   <nav>
-    <a href="#home" class="lang" data-en="Home" data-mn="Нүүр">Home</a>
-    <a href="#tours" class="lang" data-en="Tours" data-mn="Аялал">Tours</a>
-    <a href="#gallery" class="lang" data-en="Gallery" data-mn="Зургийн цомог">Gallery</a>
-    <a href="#register" class="lang" data-en="Register" data-mn="Бүртгүүлэх">Register</a>
-    <a href="#contact" class="lang" data-en="Contact" data-mn="Холбоо барих">Contact</a>
-  </nav>  <section id="home">
-    <h2 class="lang" data-en="Welcome" data-mn="Тавтай морилно уу">Welcome</h2>
-    <p class="lang" data-en="Discover the nomadic wonders of Mongolia with us!" data-mn="Монголын нүүдэлчдийн гайхамшгийг хамтдаа нээцгээе!">Discover the nomadic wonders of Mongolia with us!</p>
-  </section>  <section id="tours">
-    <h2 class="lang" data-en="Tour Categories" data-mn="Аяллын төрөл">Tour Categories</h2>
-    <div class="tour-category">
-      <img src="gobi.jpg" alt="Gobi Desert Tour" />
-      <h3 class="lang" data-en="Gobi Desert Expedition" data-mn="Говийн Адал Явдалт Аялал">Gobi Desert Expedition</h3>
-      <p class="lang" data-en="Explore the vast and stunning Gobi desert..." data-mn="Говийн уудам сайхан элсэн цөлийг судалцгаая...">Explore the vast and stunning Gobi desert...</p>
-    </div>
-    <div class="tour-category">
-      <img src="horse.jpg" alt="Horse Trekking" />
-      <h3 class="lang" data-en="Horse Trekking in Khangai" data-mn="Хангайд морин аялал">Horse Trekking in Khangai</h3>
-      <p class="lang" data-en="Experience true nomadic life on horseback..." data-mn="Морьтой аялж нүүдэлчдийн амьдралыг мэдрээрэй...">Experience true nomadic life on horseback...</p>
-    </div>
-  </section>  <section id="gallery">
-    <h2 class="lang" data-en="Gallery" data-mn="Зургийн цомог">Gallery</h2>
-    <div class="gallery">
-      <img src="nature1.jpg" alt="Nature" />
-      <img src="nature2.jpg" alt="Adventure" />
-    </div>
-  </section>  <section id="register">
-    <h2 class="lang" data-en="Register for a Tour" data-mn="Аялалд бүртгүүлэх">Register for a Tour</h2>
-    <form>
-      <div class="form-group">
-        <input type="text" placeholder="Full Name" required />
+    <a href="#home">Home</a>
+    <a href="#tours">Tours</a>
+    <a href="#contact">Contact</a>
+  </nav>  <div id="home">
+    <h2>Welcome</h2>
+    <div class="section"><img src="nature.jpg" alt="Nature"></div>
+    <div class="section"><img src="horse.jpg" alt="Horse"></div>
+    <div class="section"><img src="gobi-tour.jpg" alt="Gobi"></div>
+  </div>  <div id="tours">
+    <h2>Tours</h2>
+    <div class="section"><img src="logo.png" alt="Logo"></div>
+    <div class="section"><img src="ice_tour.jpg" alt="Ice Tour"></div>
+    <div class="rating">
+      <div class="stars">
+        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
       </div>
-      <div class="form-group">
-        <input type="email" placeholder="Email Address" required />
+      <div class="comment-box">
+        <textarea rows="3" placeholder="Write your comment..."></textarea>
       </div>
-      <div class="form-group">
-        <textarea rows="4" placeholder="Message"></textarea>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-  </section>  <section id="contact">
-    <h2 class="lang" data-en="Contact Us" data-mn="Холбоо барих">Contact Us</h2>
-    <p class="lang" data-en="Email: info@nomadic.mn" data-mn="И-мэйл: info@nomadic.mn">Email: info@nomadic.mn</p>
-    <p class="lang" data-en="Phone: +976 1234 5678" data-mn="Утас: +976 1234 5678">Phone: +976 1234 5678</p>
-    <p class="lang" data-en="Location: Ulaanbaatar, Mongolia" data-mn="Байршил: Улаанбаатар, Монгол">Location: Ulaanbaatar, Mongolia</p>
-  </section>  <section id="faq">
-    <h2 class="lang" data-en="Frequently Asked Questions" data-mn="Түгээмэл асуултууд">Frequently Asked Questions</h2>
-    <div class="faq-item">
-      <h3 class="lang" data-en="What should I pack for a tour?" data-mn="Аялалд юу авч явах вэ?">What should I pack for a tour?</h3>
-      <p class="lang" data-en="Warm clothing, sunscreen, and a sense of adventure!" data-mn="Дулаан хувцас, нарнаас хамгаалах тос, адал явдлын хүсэл!">Warm clothing, sunscreen, and a sense of adventure!</p>
+      <button class="submit-button" onclick="submitRating()">Submit</button>
+      <p id="thanks" style="display:none">Thanks for your feedback!</p>
     </div>
-    <div class="faq-item">
-      <h3 class="lang" data-en="Is WiFi available during tours?" data-mn="Аяллын үеэр интернэт байдаг уу?">Is WiFi available during tours?</h3>
-      <p class="lang" data-en="Most remote areas do not have WiFi access." data-mn="Ихэнх алслагдсан газруудад интернэт байхгүй.">Most remote areas do not have WiFi access.</p>
-    </div>
-  </section>  <section id="team">
-    <h2 class="lang" data-en="Our Team" data-mn="Манай баг">Our Team</h2>
-    <div class="team-member">
-      <img src="guide.jpg" alt="Guide" />
-      <h3 class="lang" data-en="Bold - Tour Leader" data-mn="Болд - Аяллын удирдагч">Bold - Tour Leader</h3>
-      <p class="lang" data-en="10+ years experience guiding travelers across Mongolia." data-mn="10+ жил Монгол даяар аялагчдыг удирдсан туршлагатай.">10+ years experience guiding travelers across Mongolia.</p>
-    </div>
-  </section>  <section id="certificates">
-    <h2 class="lang" data-en="Certificates" data-mn="Гэрчилгээ">Certificates</h2>
-    <div class="certificate">
-      <img src="cert1.jpg" alt="Certified Tour Agency" />
-      <p class="lang" data-en="Recognized by Mongolian Tourism Authority" data-mn="Монголын Аялал Жуулчлалын Газраас магадлан итгэмжлэгдсэн">Recognized by Mongolian Tourism Authority</p>
-    </div>
-  </section>  <footer>
-    &copy; 2024 Mongolian Nomadic Travel. All rights reserved.
-  </footer>  <script>
-    function setLanguage(lang) {
-      document.querySelectorAll('.lang').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
+  </div>  <div id="contact" class="footer">
+    <p>Phone: +976-99119911</p>
+    <p>Email: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a></p>
+  </div>  <script>
+    const stars = document.querySelectorAll('.stars span');
+    let selectedRating = 0;
+
+    stars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        selectedRating = index + 1;
+        stars.forEach((s, i) => {
+          s.classList.toggle('selected', i < selectedRating);
+        });
       });
+    });
+
+    function submitRating() {
+      if (selectedRating > 0) {
+        document.getElementById('thanks').style.display = 'block';
+      }
     }
   </script></body>
 </html>
