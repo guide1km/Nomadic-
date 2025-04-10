@@ -1,7 +1,8 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mongolian Nomadic Travel</title>
   <style>
     body {
@@ -20,6 +21,13 @@
       height: auto;
       margin-bottom: 1rem;
     }
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    p {
+      margin: 0.5rem 0 0;
+    }
     .gallery-title {
       text-align: center;
       font-size: 1.5rem;
@@ -32,18 +40,12 @@
       margin: 1rem auto;
       border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     .image-box img {
-      width: 40px;
-      height: 40px;
-      margin: 0.5rem 1rem;
-      border-radius: 5px;
-    }
-    .image-box span {
-      font-size: 1.1rem;
+      width: 100%;
+      height: auto;
+      display: block;
     }
     .footer {
       text-align: center;
@@ -56,29 +58,30 @@
 </head>
 <body>
   <div class="hero">
-    <img src="images/logo.png" alt="Nomadic Logo">
-    <h1>Welcome to Mongolian Nomadic Travel</h1>
+    <img src="logo.png" alt="Nomadic Logo" />
+    <h1>Welcome to <br>Mongolian Nomadic Travel</h1>
     <p>Explore Mongolia with us!</p>
-  </div>  <h2 class="gallery-title">Gallery</h2>  <div class="image-box">
-    <img src="images/gobi-tour.jpg" alt="Gobi Tour">
-    <span>Gobi Tour</span>
+  </div>
+
+  <div class="gallery-title">Gallery</div>
+
+  <div class="image-box">
+    <img src="gobi-tour.jpg" alt="Gobi Tour" />
   </div>
   <div class="image-box">
-    <img src="images/horse.jpg" alt="Horse Adventure">
-    <span>Horse Adventure</span>
+    <img src="horse.jpg" alt="Horse Adventure" />
   </div>
   <div class="image-box">
-    <img src="images/logo.png" alt="Nomadic Logo">
-    <span>Nomadic Logo</span>
+    <img src="logo.png" alt="Nomadic Logo" />
   </div>
   <div class="image-box">
-    <img src="images/nature.jpg" alt="Mongolian Nature">
-    <span>Mongolian Nature</span>
+    <img src="nature.jpg" alt="Mongolian Nature" />
   </div>
   <div class="image-box">
-    <img src="images/ice_tour.jpg" alt="Ice Tour">
-    <span>Ice Tour</span>
-  </div>  <div class="footer">
+    <img src="ice_tour.jpg" alt="Ice Tour" />
+  </div>
+
+  <div class="footer">
     Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
   </div>
 </body>
