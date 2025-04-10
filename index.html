@@ -161,11 +161,7 @@
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }let selectedRating = 0;
-const ratingCounts = [0, 0, 0, 0, 0]; // 1 to 5 stars index: 0 to 4
-let totalRatings = 0;
 
-<script>
-  function showSection(id) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => section.classList.remove('active'));
     const target = document.getElementById(id);
