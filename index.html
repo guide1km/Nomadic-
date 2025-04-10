@@ -70,6 +70,18 @@
       border-radius: 6px;
       cursor: pointer;
     }
+    .review-summary {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #222;
+      border-radius: 10px;
+    }
+    .bar {
+      height: 10px;
+      background: gold;
+      margin: 4px 0;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
@@ -107,6 +119,15 @@
       <button class="submit-button" onclick="submitRating()">Submit</button>
       <p id="rating-value" style="display:none; color: yellow;"></p>
       <p id="thanks" style="display:none; color: lightgreen;">Thanks!</p>
+      <div class="review-summary">
+        <h3>Average Rating: <span id="avg-rating">4.8</span> / 5</h3>
+        <p>Total Reviews: <span id="review-count">15</span></p>
+        <div>5 stars: <div class="bar" style="width: 80%"></div></div>
+        <div>4 stars: <div class="bar" style="width: 10%"></div></div>
+        <div>3 stars: <div class="bar" style="width: 7%"></div></div>
+        <div>2 stars: <div class="bar" style="width: 3%"></div></div>
+        <div>1 star: <div class="bar" style="width: 0%"></div></div>
+      </div>
     </div>
   </div>
   <div id="contact" class="section">
@@ -118,16 +139,16 @@
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-    }function rate(el) {
+    }let selectedRating = 0;
+function rate(el) {
   const stars = el.parentElement.querySelectorAll('span');
-  let index = parseInt(el.getAttribute('data-value'));
+  const index = parseInt(el.getAttribute('data-value'));
   stars.forEach((star, i) => {
     star.classList.toggle('selected', i < index);
   });
   selectedRating = index;
 }
 
-let selectedRating = 0;
 function submitRating() {
   if (selectedRating > 0) {
     document.getElementById('rating-value').style.display = 'block';
