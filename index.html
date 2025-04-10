@@ -144,20 +144,24 @@
         <h3>Average Rating: <span id="avg-rating">4.8</span> / 5</h3>
         <p>Total Reviews: <span id="review-count">15</span></p>
         <div>5 stars: <div class="bar" id="bar-5"></div></div>
-        <div>4 stars: <div class="bar" id="bar-4"></div></div>
-        <div>3 stars: <div class="bar" id="bar-3"></div></div>
-        <div>2 stars: <div class="bar" id="bar-2"></div></div>
-        <div>1 star: <div class="bar" id="bar-1"></div></div>
-      </div>
-    </div>
-  </div>
+<div>4 stars: <div class="bar" id="bar-4"></div></div>
+ <div>3 stars: <div class="bar" id="bar-3"></div></div>
+ <div>2 stars: <div class="bar" id="bar-2"></div></div>
+ <div>1 star: <div class="bar" id="bar-1"></div></div>
+ </div>
+ </div>
+ </div>
   <div id="contact" class="section">
     <h2>Contact Us</h2>
     <p>Phone: +976-12345678</p>
     <p>Email: info@nomadic.mn</p>
   </div>
   <script>
-    
+  function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+    }
   let selectedRating = 0;
   const ratingCounts = [0, 0, 0, 0, 0];
   let totalRatings = 0;
