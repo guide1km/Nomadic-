@@ -1,21 +1,57 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Nomadic Adventure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomadic Adventure Tours</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      margin: 0;
+      background: #f4f4f4;
+      color: #2c3e50;
+    }
+    header {
+      background-color: #126239;
+      color: white;
+      padding: 20px 10px;
+    }
+    h1 {
+      margin: 0;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    footer {
+      background: #eee;
+      padding: 15px;
+      font-size: 14px;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Nomadic Adventure Tours</h1>
-  <p>Explore Mongolia with us!</p>
-
-  <h2>Gallery</h2>
-  <img src="gobi-tour.jpg" width="300">
-  <img src="horse.jpg" width="300">
-  <img src="ice_tour.jpg" width="300">
-  <img src="nature.jpg" width="300">
-
-  <footer>
-    <p>Contact us: info@nomadic.mn</p>
+  <header>
+    <h1>Welcome to Nomadic Adventure Tours</h1>
+    <p>Explore Mongolia with us!</p>
+  </header>  <h2>Gallery</h2>
+  <div class="gallery">
+    <img src="images/gobi-tour.jpg" alt="Gobi Tour">
+    <img src="images/horse.jpg" alt="Horse Adventure">
+    <img src="images/logo.png" alt="Nomadic Logo">
+    <img src="images/nature.jpg" alt="Mongolian Nature">
+    <img src="images/ice_tour.jpg" alt="Ice Tour">
+  </div>  <footer>
+    Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
   </footer>
 </body>
 </html>
