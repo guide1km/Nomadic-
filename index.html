@@ -1,128 +1,161 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nomadic Adventure Tours</title>
   <style>
     body {
       font-family: sans-serif;
       margin: 0;
       background-color: #000;
+      color: white;
     }
     .hero {
       background-color: #0c5e31;
-      color: white;
       text-align: center;
       padding: 2rem 1rem;
     }
     .hero img {
       width: 100px;
-      height: auto;
+      margin-bottom: 1rem;
     }
     .nav-buttons {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 1rem;
-      margin: 1rem 0;
+      margin-top: 1rem;
     }
     .nav-buttons a {
       padding: 0.5rem 1rem;
       background-color: white;
-      color: #0c5e31;
+      color: #28a745;
       text-decoration: none;
       font-weight: bold;
+      border: 2px solid #FFFFFF;
       border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
     }
-    .lang-toggle {
-      margin-top: 1rem;
+    .nav-buttons a:hover {
+      background-color: #FFD700;
+      color: black;
     }
-    .lang-toggle button {
-      margin: 0 0.5rem;
-      padding: 0.3rem 0.8rem;
-      border: none;
-      background-color: white;
-      color: #0c5e31;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
+    section {
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: auto;
     }
     .gallery-title {
-      text-align: center;
-      color: white;
       font-size: 1.5rem;
-      margin-top: 2rem;
+      color: white;
+      margin-bottom: 1rem;
+      text-align: center;
     }
     .image-box {
-      max-width: 600px;
-      margin: 1rem auto;
+      background: black;
       border-radius: 1rem;
       overflow: hidden;
-      background: black;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin: 1rem auto;
+      max-width: 600px;
     }
     .image-box img {
       width: 100%;
       display: block;
+    }
+    .rating, .comment-box {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .stars span {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.selected {
+      color: gold;
+    }
+    .submit-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background: #222;
+      font-size: 0.9rem;
+      color: white;
+    }
+    textarea {
+      width: 80%;
+      max-width: 400px;
+      height: 80px;
+      margin-top: 1rem;
+      border-radius: 6px;
+      padding: 0.5rem;
+      resize: vertical;
     }
   </style>
 </head>
 <body>
   <div class="hero">
     <img src="logo.png" alt="Nomadic Logo">
-    <h1 id="welcome-title">Welcome</h1>
-    <p id="desc">Discover Mongolia with us!</p><div class="nav-buttons">
-  <a id="btn-home" href="#home">Home</a>
-  <a id="btn-tours" href="#tours">Tours</a>
-  <a id="btn-contact" href="#contact">Contact</a>
-</div>
+    <h1>Nomadic Adventure Tours</h1>
+    <div class="nav-buttons">
+      <a href="#home" onclick="scrollToSection('home')">Home</a>
+      <a href="#tours" onclick="scrollToSection('tours')">Tours</a>
+      <a href="#contact" onclick="scrollToSection('contact')">Contact</a>
+      <a href="#" onclick="alert('Switch to Mongolian!')">MN</a>
+      <a href="#" onclick="alert('Switch to English!')">EN</a>
+    </div>
+  </div>  <section id="home">
+    <h2 class="gallery-title">Welcome</h2>
+    <p style="text-align:center">Discover Mongolia with us!</p>
+    <div class="image-box"><img src="nature.jpg" alt="Nature"></div>
+    <div class="image-box"><img src="horse.jpg" alt="Horse"></div>
+    <div class="image-box"><img src="gobi-tour.jpg" alt="Gobi"></div>
+  </section>  <section id="tours">
+    <h2 class="gallery-title">Tours</h2>
+    <div class="image-box"><img src="ice_tour.jpg" alt="Ice Tour"></div>
+    <div class="rating">
+      <div class="stars">
+        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+      </div>
+      <textarea placeholder="Write your comment..."></textarea>
+      <br>
+      <button class="submit-button" onclick="submitRating()">Submit</button>
+      <p id="thanks" style="display:none; color:lightgreen">Thanks!</p>
+    </div>
+  </section>  <section id="contact">
+    <h2 class="gallery-title">Contact</h2>
+    <p style="text-align:center">Phone: +976-99112233<br>Email: info@nomadic.mn</p>
+  </section>  <div class="footer">&copy; 2025 Nomadic Tours</div>  <script>
+    const stars = document.querySelectorAll('.stars span');
+    let selectedRating = 0;
 
-<div class="lang-toggle">
-  <button onclick="setLang('en')">EN</button>
-  <button onclick="setLang('mn')">MN</button>
-</div>
+    stars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        selectedRating = index + 1;
+        stars.forEach((s, i) => s.classList.toggle('selected', i < selectedRating));
+      });
+    });
 
-  </div>  <h2 class="gallery-title" id="home">Gallery</h2>
-  <div class="image-box">
-    <img src="nature.jpg" alt="Nature">
-  </div>
-  <div class="image-box">
-    <img src="horse.jpg" alt="Horse">
-  </div>
-  <div class="image-box">
-    <img src="gobi-tour.jpg" alt="Gobi">
-  </div>  <h2 class="gallery-title" id="tours">Tours</h2>
-  <div class="image-box">
-    <img src="logo.png" alt="Logo">
-  </div>
-  <div class="image-box">
-    <img src="ice_tour.jpg" alt="Ice Tour">
-  </div>  <h2 class="gallery-title" id="contact">Contact</h2>
-  <div style="text-align:center; color:white; padding: 1rem;">
-    <p>Phone: +976-88112233</p>
-    <p>Email: <a href="mailto:info@nomadic.mn" style="color: #FFD700">info@nomadic.mn</a></p>
-  </div>  <script>
-    const texts = {
-      en: {
-        welcome: "Welcome",
-        desc: "Discover Mongolia with us!",
-        home: "Home",
-        tours: "Tours",
-        contact: "Contact"
-      },
-      mn: {
-        welcome: "Тавтай морил",
-        desc: "Монгол орноор аялцгаая!",
-        home: "Нүүр",
-        tours: "Аяллууд",
-        contact: "Холбогдох"
+    function submitRating() {
+      if (selectedRating > 0) {
+        document.getElementById('thanks').style.display = 'block';
       }
-    };
+    }
 
-    function setLang(lang) {
-      document.getElementById("welcome-title").textContent = texts[lang].welcome;
-      document.getElementById("desc").textContent = texts[lang].desc;
-      document.getElementById("btn-home").textContent = texts[lang].home;
-      document.getElementById("btn-tours").textContent = texts[lang].tours;
-      document.getElementById("btn-contact").textContent = texts[lang].contact;
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   </script></body>
 </html>
