@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8" />
+<!DOCTYPE html><html lang="en"><head>  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nomadic Adventure Tours</title>
   <style>
@@ -122,11 +121,11 @@
       <div class="review-summary">
         <h3>Average Rating: <span id="avg-rating">4.8</span> / 5</h3>
         <p>Total Reviews: <span id="review-count">15</span></p>
-        <div>5 stars: <div class="bar" style="width: 80%"></div></div>
-        <div>4 stars: <div class="bar" style="width: 10%"></div></div>
-        <div>3 stars: <div class="bar" style="width: 7%"></div></div>
-        <div>2 stars: <div class="bar" style="width: 3%"></div></div>
-        <div>1 star: <div class="bar" style="width: 0%"></div></div>
+        <div>5 stars: <div class="bar" id="bar-5"></div></div>
+        <div>4 stars: <div class="bar" id="bar-4"></div></div>
+        <div>3 stars: <div class="bar" id="bar-3"></div></div>
+        <div>2 stars: <div class="bar" id="bar-2"></div></div>
+        <div>1 star: <div class="bar" id="bar-1"></div></div>
       </div>
     </div>
   </div>
@@ -140,17 +139,39 @@
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }let selectedRating = 0;
+const ratingCounts = [0, 0, 0, 0, 0]; // 1 to 5 stars index: 0 to 4
+let totalRatings = 0;
+
 function rate(el) {
   const stars = el.parentElement.querySelectorAll('span');
   const index = parseInt(el.getAttribute('data-value'));
-  stars.forEach((star, i) => {
-    star.classList.toggle('selected', i < index);
-  });
-  selectedRating = index;
+  stars.forEach(star => star.classList.remove('selected'));
+  if (selectedRating === index) {
+    selectedRating = 0;
+  } else {
+    for (let i = 0; i < index; i++) {
+      stars[i].classList.add('selected');
+    }
+    selectedRating = index;
+  }
 }
 
 function submitRating() {
   if (selectedRating > 0) {
+    ratingCounts[selectedRating - 1]++;
+    totalRatings++;
+
+    const totalScore = ratingCounts.reduce((sum, count, i) => sum + count * (i + 1), 0);
+    const average = (totalScore / totalRatings).toFixed(1);
+
+    document.getElementById('avg-rating').innerText = average;
+    document.getElementById('review-count').innerText = totalRatings;
+
+    for (let i = 0; i < 5; i++) {
+      const percent = (ratingCounts[4 - i] / totalRatings) * 100;
+      document.getElementById(`bar-${5 - i}`).style.width = percent + '%';
+    }
+
     document.getElementById('rating-value').style.display = 'block';
     document.getElementById('rating-value').innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
     document.getElementById('thanks').style.display = 'block';
