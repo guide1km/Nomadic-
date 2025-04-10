@@ -1,4 +1,4 @@
-х<!DOCTYPE html><html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,19 +66,40 @@
       background: #eee;
       margin-top: 2rem;
     }
+    .lang-btns {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .lang-btns button {
+      padding: 0.3rem 0.6rem;
+      margin-left: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <div class="lang-btns">
+    <button onclick="setLang('en')">English</button>
+    <button onclick="setLang('mn')">Монгол</button>
+  </div>
   <div class="hero">
     <img src="logo.png" alt="Nomadic Logo" />
-    <h1>Welcome to Mongolian Nomadic Travel</h1>
-    <p>Explore Mongolia with us!</p>
+    <h1 class="lang" data-en="Welcome to Mongolian Nomadic Travel" data-mn="Монгол нөөдөлчин аялалд тавтай морилно уу!">
+      Welcome to Mongolian Nomadic Travel
+    </h1>
+    <p class="lang" data-en="Explore Mongolia with us!" data-mn="Бидэнтэй хамт Монголыг нээцгээ!">
+      Explore Mongolia with us!
+    </p>
     <div class="nav-buttons">
-      <a href="#">Home</a>
-      <a href="#">Tours</a>
-      <a href="#">Contact</a>
+      <a href="#" class="lang" data-en="Home" data-mn="Нүүр">Home</a>
+      <a href="#" class="lang" data-en="Tours" data-mn="Аялалууд">Tours</a>
+      <a href="#" class="lang" data-en="Contact" data-mn="Холбоо барих">Contact</a>
     </div>
-  </div>  <h2 class="gallery-title">Gallery</h2>
+  </div>
+  <h2 class="gallery-title lang" data-en="Gallery" data-mn="Зургийн цомог">Gallery</h2>
   <div class="image-box">
     <img src="gobi-tour.jpg" alt="Gobi Tour">
   </div>
@@ -90,8 +111,14 @@
   </div>
   <div class="image-box">
     <img src="nature.jpg" alt="Mongolian Nature">
-  </div>  <div class="footer">
-    Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
   </div>
-</body>
+  <div class="footer lang" data-en="Contact us: " data-mn="Холбоо барих: ">
+    Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
+  </div>  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.lang').forEach(el => {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+    }
+  </script></body>
 </html>
