@@ -180,39 +180,38 @@
       selectedRating = index;
     }
   }
+function submitRating() {
+  if (selectedRating > 0) {
+    ratingCounts[selectedRating - 1]++;
+    totalRatings++;
 
-  function submitRating() {
-    if (selectedRating > 0) {
-      ratingCounts[selectedRating - 1]++;
-      totalRatings++;
+    const totalScore = ratingCounts.reduce((sum, count, i) => sum + count * (i + 1), 0);
+    const average = (totalScore / totalRatings).toFixed(1);
 
-      const totalScore = ratingCounts.reduce((sum, count, i) => sum + count * (i + 1), 0);
-      const average = (totalScore / totalRatings).toFixed(1);
+    // Update average and total review count
+    const avgRatingEl = document.getElementById('avg-rating');
+    const reviewCountEl = document.getElementById('review-count');
+    if (avgRatingEl) avgRatingEl.innerText = average;
+    if (reviewCountEl) reviewCountEl.innerText = totalRatings;
 
-      const avgRatingEl = document.getElementById('avg-rating');
-      const reviewCountEl = document.getElementById('review-count');
-      if (avgRatingEl) avgRatingEl.innerText = average;
-      if (reviewCountEl) reviewCountEl.innerText = totalRatings;
+    // Update rating bars (from 5 to 1 star)
+    for (let i = 0; i < 5; i++) {
+      const percent = totalRatings > 0 ? (ratingCounts[4 - i] / totalRatings) * 100 : 0;
+      const bar = document.getElementById(`bar-${5 - i}`);
+      if (bar) bar.style.width = percent + '%';
+    }
 
-      for (let i = 0; i < 5; i++) {
-        const percent = totalRatings > 0 ? (ratingCounts[4 - i] / totalRatings) * 100 : 0;
-        const bar = document.getElementById(`bar-${5 - i}`);
-        if (bar) bar.style.width = percent + '%';
-      }
+    // Show user's rating and thank you message
+    const ratingValueEl = document.getElementById('rating-value');
+    const thanksEl = document.getElementById('thanks');
 
-      const ratingValueEl = document.getElementById('rating-value');
-      const thanksEl = document.getElementById('thanks');
+    if (ratingValueEl) {
+      ratingValueEl.style.display = 'block';
+      ratingValueEl.innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
+    }
 
-      if (ratingValueEl) {
-        ratingValueEl.style.display = 'block';
-        ratingValueEl.innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
-      }
-
-      if (thanksEl) {
-        thanksEl.style.display = 'block';
-      }
+    if (thanksEl) {
+      thanksEl.style.display = 'block';
     }
   }
-</script>
-</body>
-</html>
+}
