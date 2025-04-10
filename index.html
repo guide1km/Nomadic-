@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mongolian Nomadic Travel</title>
   <style>
     body {
@@ -10,27 +9,38 @@
       margin: 0;
       background-color: #f9f9f9;
     }
-
     .hero {
       background-color: #0c5e31;
       color: white;
       text-align: center;
       padding: 2rem 1rem;
     }
-
     .hero img {
       width: 100px;
       height: auto;
       margin-bottom: 1rem;
     }
-
+    .navbar {
+      text-align: center;
+      background-color: #0c5e31;
+      padding: 1rem;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .navbar a:hover {
+      text-decoration: underline;
+    }
     .gallery-title {
       text-align: center;
       font-size: 1.5rem;
       color: #1a2a3a;
       margin: 2rem 0 1rem;
     }
-
     .image-box {
       background: white;
       max-width: 600px;
@@ -39,13 +49,11 @@
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-
     .image-box img {
       width: 100%;
       height: auto;
       display: block;
     }
-
     .footer {
       text-align: center;
       padding: 1rem;
@@ -56,29 +64,30 @@
   </style>
 </head>
 <body>
-  <div class="hero">
-    <img src="logo.png" alt="Nomadic Logo" />
-    <h1>Welcome to<br>Mongolian Nomadic Travel</h1>
+  <div class="hero" id="home">
+    <img src="logo.png" alt="Nomadic Logo">
+    <h1>Welcome to Mongolian Nomadic Travel</h1>
     <p>Explore Mongolia with us!</p>
-  </div>
-
-  <h2 class="gallery-title">Gallery</h2>
-
-  <div class="image-box">
-    <img src="gobi-tour.jpg" alt="Gobi Tour" />
-  </div>
-  <div class="image-box">
-    <img src="horse.jpg" alt="Horse Adventure" />
+  </div>  <div class="navbar">
+    <a href="#home">Home</a>
+    <a href="#gallery">Tours</a>
+    <a href="#contact">Contact</a>
+  </div>  <h2 class="gallery-title" id="gallery">Gallery</h2>  <div class="image-box">
+    <img src="gobi-tour.jpg" alt="Gobi Tour">
   </div>
   <div class="image-box">
-    <img src="ice_tour.jpg" alt="Ice Tour" />
+    <img src="horse.jpg" alt="Horse Adventure">
   </div>
   <div class="image-box">
-    <img src="nature.jpg" alt="Mongolian Nature" />
+    <img src="logo.png" alt="Nomadic Logo">
   </div>
-
-  <div class="footer">
-    Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
+  <div class="image-box">
+    <img src="nature.jpg" alt="Mongolian Nature">
   </div>
+  <div class="image-box">
+    <img src="ice_tour.jpg" alt="Ice Tour">
+  </div>  <footer class="footer" id="contact">
+    <p>Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a></p>
+  </footer>
 </body>
 </html>
