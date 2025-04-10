@@ -1,27 +1,21 @@
-<head>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nomadic Adventure Tours</title>
 
-  <!-- Google Site Verification -->
-  <meta name="google-site-verification" content="hca1j3pwrw4WhetqqNF5uirEKIKA1Iq6ahPEXznxFvE" />
-
-  <!-- SEO -->
+  <!-- SEO + Social -->
   <meta name="description" content="Discover Mongolia through unique nomadic adventure tours including the Gobi Desert, horse riding, and ice cave explorations.">
-
-  <!-- Open Graph / Facebook -->
   <meta property="og:title" content="Nomadic Adventure Tours" />
   <meta property="og:description" content="Explore the beauty of Mongolia with our unique adventure tours." />
   <meta property="og:image" content="https://nomadic-woad.vercel.app/nature.jpg" />
   <meta property="og:url" content="https://nomadic-woad.vercel.app" />
   <meta property="og:type" content="website" />
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Nomadic Adventure Tours" />
   <meta name="twitter:description" content="Explore the beauty of Mongolia with our unique adventure tours." />
   <meta name="twitter:image" content="https://nomadic-woad.vercel.app/nature.jpg" />
-
-  <title>Nomadic Adventure Tours</title>
 
   <style>
     body {
@@ -102,6 +96,7 @@
       background: gold;
       margin: 4px 0;
       border-radius: 4px;
+      width: 0;
     }
   </style>
 </head>
@@ -115,6 +110,7 @@
       <button onclick="showSection('contact')">Contact</button>
     </div>
   </div>
+
   <div id="home" class="section active">
     <h2>Welcome</h2>
     <p>Discover Mongolia with us!</p>
@@ -122,6 +118,7 @@
     <div class="image-box"><img src="horse.jpg" alt="Horse"></div>
     <div class="image-box"><img src="gobi-tour.jpg" alt="Gobi"></div>
   </div>
+
   <div id="tours" class="section">
     <h2>Tours</h2>
     <div class="image-box"><img src="logo.png" alt="Tour Logo"></div>
@@ -141,77 +138,70 @@
       <p id="rating-value" style="display:none; color: yellow;"></p>
       <p id="thanks" style="display:none; color: lightgreen;">Thanks!</p>
       <div class="review-summary">
-        <h3>Average Rating: <span id="avg-rating">4.8</span> / 5</h3>
-        <p>Total Reviews: <span id="review-count">15</span></p>
+        <h3>Average Rating: <span id="avg-rating">0</span> / 5</h3>
+        <p>Total Reviews: <span id="review-count">0</span></p>
         <div>5 stars: <div class="bar" id="bar-5"></div></div>
-<div>4 stars: <div class="bar" id="bar-4"></div></div>
- <div>3 stars: <div class="bar" id="bar-3"></div></div>
- <div>2 stars: <div class="bar" id="bar-2"></div></div>
- <div>1 star: <div class="bar" id="bar-1"></div></div>
- </div>
- </div>
- </div>
+        <div>4 stars: <div class="bar" id="bar-4"></div></div>
+        <div>3 stars: <div class="bar" id="bar-3"></div></div>
+        <div>2 stars: <div class="bar" id="bar-2"></div></div>
+        <div>1 star: <div class="bar" id="bar-1"></div></div>
+      </div>
+    </div>
+  </div>
+
   <div id="contact" class="section">
     <h2>Contact Us</h2>
     <p>Phone: +976-12345678</p>
     <p>Email: info@nomadic.mn</p>
   </div>
+
   <script>
-  function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const target = document.getElementById(id);
-  if (target) target.classList.add('active');
+    let selectedRating = 0;
+    const ratingCounts = [0, 0, 0, 0, 0];
+    let totalRatings = 0;
+
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
     }
-  let selectedRating = 0;
-  const ratingCounts = [0, 0, 0, 0, 0];
-  let totalRatings = 0;
 
-  function rate(el) {
-    const stars = el.parentElement.querySelectorAll('span');
-    const index = parseInt(el.getAttribute('data-value'));
-    stars.forEach(star => star.classList.remove('selected'));
+    function rate(el) {
+      const stars = el.parentElement.querySelectorAll('span');
+      const index = parseInt(el.getAttribute('data-value'));
+      stars.forEach(star => star.classList.remove('selected'));
 
-    if (selectedRating === index) {
-      selectedRating = 0;
-    } else {
-      for (let i = 0; i < index; i++) {
-        stars[i].classList.add('selected');
+      if (selectedRating === index) {
+        selectedRating = 0;
+      } else {
+        for (let i = 0; i < index; i++) {
+          stars[i].classList.add('selected');
+        }
+        selectedRating = index;
       }
-      selectedRating = index;
-    }
-  }
-function submitRating() {
-  if (selectedRating > 0) {
-    ratingCounts[selectedRating - 1]++;
-    totalRatings++;
-
-    const totalScore = ratingCounts.reduce((sum, count, i) => sum + count * (i + 1), 0);
-    const average = (totalScore / totalRatings).toFixed(1);
-
-    // Update average and total review count
-    const avgRatingEl = document.getElementById('avg-rating');
-    const reviewCountEl = document.getElementById('review-count');
-    if (avgRatingEl) avgRatingEl.innerText = average;
-    if (reviewCountEl) reviewCountEl.innerText = totalRatings;
-
-    // Update rating bars (from 5 to 1 star)
-    for (let i = 0; i < 5; i++) {
-      const percent = totalRatings > 0 ? (ratingCounts[4 - i] / totalRatings) * 100 : 0;
-      const bar = document.getElementById(`bar-${5 - i}`);
-      if (bar) bar.style.width = percent + '%';
     }
 
-    // Show user's rating and thank you message
-    const ratingValueEl = document.getElementById('rating-value');
-    const thanksEl = document.getElementById('thanks');
+    function submitRating() {
+      if (selectedRating > 0) {
+        ratingCounts[selectedRating - 1]++;
+        totalRatings++;
 
-    if (ratingValueEl) {
-      ratingValueEl.style.display = 'block';
-      ratingValueEl.innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
-    }
+        const totalScore = ratingCounts.reduce((sum, count, i) => sum + count * (i + 1), 0);
+        const average = (totalScore / totalRatings).toFixed(1);
 
-    if (thanksEl) {
-      thanksEl.style.display = 'block';
+        document.getElementById('avg-rating').innerText = average;
+        document.getElementById('review-count').innerText = totalRatings;
+
+        for (let i = 0; i < 5; i++) {
+          const percent = (ratingCounts[4 - i] / totalRatings) * 100;
+          document.getElementById(`bar-${5 - i}`).style.width = percent + '%';
+        }
+
+        document.getElementById('rating-value').style.display = 'block';
+        document.getElementById('rating-value').innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
+        document.getElementById('thanks').style.display = 'block';
+      }
     }
-  }
-}
+  </script>
+</body>
+</html>
