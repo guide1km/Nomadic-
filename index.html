@@ -32,12 +32,18 @@
       margin: 1rem auto;
       border-radius: 1rem;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
     }
     .image-box img {
-      width: 100%;
-      height: auto;
-      display: block;
+      width: 40px;
+      height: 40px;
+      margin: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+    .image-box span {
+      font-size: 1.1rem;
     }
     .footer {
       text-align: center;
@@ -55,15 +61,23 @@
     <p>Explore Mongolia with us!</p>
   </div>  <h2 class="gallery-title">Gallery</h2>  <div class="image-box">
     <img src="images/gobi-tour.jpg" alt="Gobi Tour">
+    <span>Gobi Tour</span>
   </div>
   <div class="image-box">
     <img src="images/horse.jpg" alt="Horse Adventure">
+    <span>Horse Adventure</span>
   </div>
   <div class="image-box">
-    <img src="images/ice_tour.jpg" alt="Ice Tour">
+    <img src="images/logo.png" alt="Nomadic Logo">
+    <span>Nomadic Logo</span>
   </div>
   <div class="image-box">
     <img src="images/nature.jpg" alt="Mongolian Nature">
+    <span>Mongolian Nature</span>
+  </div>
+  <div class="image-box">
+    <img src="images/ice_tour.jpg" alt="Ice Tour">
+    <span>Ice Tour</span>
   </div>  <div class="footer">
     Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
   </div>
