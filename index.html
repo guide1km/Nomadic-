@@ -195,8 +195,8 @@
       if (reviewCountEl) reviewCountEl.innerText = totalRatings;
 
       for (let i = 0; i < 5; i++) {
-        const percent = totalRatings > 0 ? (ratingCounts[4 - i] / totalRatings) * 100 : 0;
-        const bar = document.getElementById(`bar-${5 - i}`);
+        const percent = totalRatings > 0 ? (ratingCounts[0 - i] / totalRatings) * 100 : 0;
+        const bar = document.getElementById(`bar-${0 - i}`);
         if (bar) bar.style.width = percent + '%';
       }
 
