@@ -25,7 +25,6 @@
       justify-content: center;
       gap: 1rem;
       margin-top: 1rem;
-      flex-wrap: wrap;
     }
     .nav-buttons a {
       padding: 0.5rem 1rem;
@@ -39,7 +38,7 @@
     }
     .nav-buttons a:hover {
       background-color: #FFD700;
-      color: black;
+      color: Black;
     }
     .gallery-title {
       text-align: center;
@@ -54,12 +53,32 @@
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      padding-bottom: 1rem;
     }
     .image-box img {
       width: 100%;
       height: auto;
       display: block;
+    }
+    .rating {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .stars span {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.selected {
+      color: gold;
+    }
+    .submit-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
     }
     .footer {
       text-align: center;
@@ -68,139 +87,52 @@
       background: #eee;
       margin-top: 2rem;
     }
-    .lang-switch {
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
-    }
-    .rating {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .rating span {
-      font-size: 2rem;
-      cursor: pointer;
-      color: #ccc;
-    }
-    .rating span.active {
-      color: gold;
-    }
-    .submit-review {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-    .submit-review button {
-      background-color: #28A745;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .submit-review button:hover {
-      background-color: #1f7a35;
-    }
-    .review-box {
-      text-align: center;
-      margin: 1rem auto;
-      color: white;
-    }
   </style>
 </head>
 <body>
-  <div class="lang-switch">
-    <button onclick="setLanguage('en')">English</button>
-    <button onclick="setLanguage('mn')">Монгол</button>
-  </div>
   <div class="hero">
     <img src="logo.png" alt="Nomadic Logo" />
-    <h1 id="title">Welcome to Mongolian Nomadic Travel</h1>
-    <p id="subtitle">Explore Mongolia with us!</p>
+    <h1>Welcome to Mongolian Nomadic Travel</h1>
+    <p>Explore Mongolia with us!</p>
     <div class="nav-buttons">
-      <a href="#home" id="homeBtn">Home</a>
-      <a href="#tours" id="toursBtn">Tours</a>
-      <a href="#contact" id="contactBtn">Contact</a>
+      <a href="#">Home</a>
+      <a href="#tours">Tours</a>
+      <a href="#contact">Contact</a>
     </div>
-  </div>  <h2 class="gallery-title" id="galleryTitle">Gallery</h2>
-  <div class="image-box" id="home">
-    <img src="gobi-tour.jpg" alt="Gobi Tour" />
   </div>
-  <div class="image-box" id="tours">
-    <img src="horse.jpg" alt="Horse Adventure" />
-    <div class="rating" id="rating">
-      <span onclick="rate(1)">&#9733;</span>
-      <span onclick="rate(2)">&#9733;</span>
-      <span onclick="rate(3)">&#9733;</span>
-      <span onclick="rate(4)">&#9733;</span>
-      <span onclick="rate(5)">&#9733;</span>
-    </div>
-    <div class="submit-review">
-      <button onclick="submitRating()">Submit Rating</button>
-    </div>
-    <div class="review-box" id="reviewBox"></div>
-  </div>
+  <h2 class="gallery-title" id="tours">Gallery</h2>
   <div class="image-box">
-    <img src="ice_tour.jpg" alt="Ice Tour" />
+    <img src="horse.jpg" alt="Horse Adventure">
   </div>
-  <div class="image-box">
-    <img src="nature.jpg" alt="Mongolian Nature" />
+  <div class="rating">
+    <div class="stars">
+      <span>&#9733;</span>
+      <span>&#9733;</span>
+      <span>&#9733;</span>
+      <span>&#9733;</span>
+      <span>&#9733;</span>
+    </div>
+    <button class="submit-button" onclick="submitRating()">Submit Rating</button>
+    <p id="thanks" style="color: white; display: none;">Thanks!</p>
   </div>
   <div class="footer" id="contact">
-    <span id="contactText">
-      Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
-    </span>
+    Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>
   </div>  <script>
-    const translations = {
-      en: {
-        title: "Welcome to Mongolian Nomadic Travel",
-        subtitle: "Explore Mongolia with us!",
-        homeBtn: "Home",
-        toursBtn: "Tours",
-        contactBtn: "Contact",
-        galleryTitle: "Gallery",
-        contactText: 'Contact us: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>'
-      },
-      mn: {
-        title: "Монголын Нүүдлийн Аялалд Тавтай Морил",
-        subtitle: "Бидэнтэй Монгол орноор аял!",
-        homeBtn: "Нүүр",
-        toursBtn: "Аяллууд",
-        contactBtn: "Холбоо барих",
-        galleryTitle: "Галерей",
-        contactText: 'Холбоо барих: <a href="mailto:info@nomadic.mn">info@nomadic.mn</a>'
-      }
-    };
+    const stars = document.querySelectorAll('.stars span');
+    let selectedRating = 0;
 
-    function setLanguage(lang) {
-      document.getElementById("title").innerText = translations[lang].title;
-      document.getElementById("subtitle").innerText = translations[lang].subtitle;
-      document.getElementById("homeBtn").innerText = translations[lang].homeBtn;
-      document.getElementById("toursBtn").innerText = translations[lang].toursBtn;
-      document.getElementById("contactBtn").innerText = translations[lang].contactBtn;
-      document.getElementById("galleryTitle").innerText = translations[lang].galleryTitle;
-      document.getElementById("contactText").innerHTML = translations[lang].contactText;
-    }
-
-    let currentRating = 0;
-    function rate(stars) {
-      currentRating = stars;
-      const starsEl = document.querySelectorAll('#rating span');
-      starsEl.forEach((star, index) => {
-        if (index < stars) {
-          star.classList.add('active');
-        } else {
-          star.classList.remove('active');
-        }
+    stars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        selectedRating = index + 1;
+        stars.forEach((s, i) => {
+          s.classList.toggle('selected', i < selectedRating);
+        });
       });
-    }
+    });
 
     function submitRating() {
-      const reviewBox = document.getElementById('reviewBox');
-      if (currentRating > 0) {
-        reviewBox.textContent = `Thank you! You rated this tour ${currentRating} star${currentRating > 1 ? 's' : ''}.`;
-      } else {
-        reviewBox.textContent = "Please select a rating first.";
+      if (selectedRating > 0) {
+        document.getElementById('thanks').style.display = 'block';
       }
     }
   </script></body>
