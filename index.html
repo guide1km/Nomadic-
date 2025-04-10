@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nomadic Adventure Tours</title>
@@ -49,6 +48,28 @@
       width: 100%;
       border-radius: 10px;
     }
+    .rating {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .stars span {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #ccc;
+    }
+    .stars span.selected {
+      color: gold;
+    }
+    .submit-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -60,42 +81,61 @@
       <button onclick="showSection('tours')">Tours</button>
       <button onclick="showSection('contact')">Contact</button>
     </div>
-  </div>  <div id="home" class="section active">
+  </div>
+  <div id="home" class="section active">
     <h2>Welcome</h2>
     <p>Discover Mongolia with us!</p>
     <div class="image-box"><img src="nature.jpg" alt="Nature"></div>
     <div class="image-box"><img src="horse.jpg" alt="Horse"></div>
     <div class="image-box"><img src="gobi-tour.jpg" alt="Gobi"></div>
-  </div>  <div id="tours" class="section">
+  </div>
+  <div id="tours" class="section">
     <h2>Tours</h2>
     <div class="image-box"><img src="logo.png" alt="Tour Logo"></div>
     <div class="image-box"><img src="ice_tour.jpg" alt="Ice Tour"></div>
     <p>Rate this tour:</p>
     <div class="rating">
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
-      <span onclick="rate(this)">&#9733;</span>
+      <div class="stars" id="stars">
+        <span data-value="1" onclick="rate(this)">&#9733;</span>
+        <span data-value="2" onclick="rate(this)">&#9733;</span>
+        <span data-value="3" onclick="rate(this)">&#9733;</span>
+        <span data-value="4" onclick="rate(this)">&#9733;</span>
+        <span data-value="5" onclick="rate(this)">&#9733;</span>
+      </div>
+      <textarea rows="3" cols="40" placeholder="Write a comment..."></textarea>
+      <br>
+      <button class="submit-button" onclick="submitRating()">Submit</button>
+      <p id="rating-value" style="display:none; color: yellow;"></p>
+      <p id="thanks" style="display:none; color: lightgreen;">Thanks!</p>
     </div>
-    <textarea rows="3" cols="40" placeholder="Write a comment..."></textarea>
-    <br><button onclick="alert('Thanks for your feedback!')">Submit</button>
-  </div>  <div id="contact" class="section">
+  </div>
+  <div id="contact" class="section">
     <h2>Contact Us</h2>
     <p>Phone: +976-12345678</p>
     <p>Email: info@nomadic.mn</p>
-  </div>  <script>
+  </div>
+  <script>
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
-    }
+    }function rate(el) {
+  const stars = el.parentElement.querySelectorAll('span');
+  let index = parseInt(el.getAttribute('data-value'));
+  stars.forEach((star, i) => {
+    star.classList.toggle('selected', i < index);
+  });
+  selectedRating = index;
+}
 
-    function rate(el) {
-      const stars = el.parentElement.querySelectorAll('span');
-      let index = Array.from(stars).indexOf(el);
-      stars.forEach((star, i) => {
-        star.style.color = i <= index ? 'gold' : '#ccc';
-      });
-    }
-  </script></body>
+let selectedRating = 0;
+function submitRating() {
+  if (selectedRating > 0) {
+    document.getElementById('rating-value').style.display = 'block';
+    document.getElementById('rating-value').innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
+    document.getElementById('thanks').style.display = 'block';
+  }
+}
+
+  </script>
+</body>
 </html>
