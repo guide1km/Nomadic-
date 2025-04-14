@@ -12,28 +12,20 @@
     <nav class="mt-4 flex justify-center space-x-4">
       <button onclick="showSection('home')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Home</button>
       <button onclick="showSection('tours')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Tours</button>
+      <button onclick="showSection('gallery')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Gallery</button>
+      <button onclick="showSection('reviews')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Reviews</button>
       <button onclick="showSection('contact')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Contact</button>
     </nav>
   </header>  <main class="px-4">
     <section id="home" class="section active max-w-3xl mx-auto my-6">
       <h2 class="text-2xl font-semibold mb-2">Welcome</h2>
-      <p class="mb-4">Discover Mongolia with us!</p>
+      <p class="mb-4">Explore Mongolia's vast landscapes, ancient culture, and nomadic traditions with personalized tours just for you!</p>
       <div class="grid md:grid-cols-3 gap-4">
         <img src="nature.jpg" alt="Nature" class="rounded shadow">
         <img src="horse.jpg" alt="Horse" class="rounded shadow">
         <img src="gobi-tour.jpg" alt="Gobi" class="rounded shadow">
       </div>
-    </section><section class="max-w-3xl mx-auto my-12">
-  <h2 class="text-3xl font-bold mb-4 text-center">Why Travel With Me</h2>
-  <ul class="list-disc list-inside space-y-2">
-    <li>Over 10 years of experience guiding in Mongolia</li>
-    <li>Fluent in English and local dialects</li>
-    <li>Custom tours tailored to your interests</li>
-    <li>Trusted by travelers from over 30 countries</li>
-  </ul>
-</section>
-
-<section class="max-w-6xl mx-auto my-12">
+    </section><section id="tours" class="section hidden max-w-6xl mx-auto my-12">
   <h2 class="text-3xl font-bold mb-6 text-center">Popular Tour Packages</h2>
   <div class="grid md:grid-cols-3 gap-6">
     <div class="bg-gray-800 p-4 rounded shadow">
@@ -54,6 +46,34 @@
   </div>
 </section>
 
+<section id="gallery" class="section hidden max-w-6xl mx-auto my-12">
+  <h2 class="text-3xl font-bold mb-6 text-center">Photo Gallery</h2>
+  <div class="grid md:grid-cols-4 gap-4">
+    <img src="gallery1.jpg" alt="Gallery 1" class="rounded shadow">
+    <img src="gallery2.jpg" alt="Gallery 2" class="rounded shadow">
+    <img src="gallery3.jpg" alt="Gallery 3" class="rounded shadow">
+    <img src="gallery4.jpg" alt="Gallery 4" class="rounded shadow">
+  </div>
+</section>
+
+<section id="reviews" class="section hidden max-w-3xl mx-auto my-12">
+  <h2 class="text-3xl font-bold mb-4 text-center">What Our Guests Say</h2>
+  <div class="space-y-4">
+    <div class="bg-gray-800 p-4 rounded">
+      <p class="italic">“Best experience ever! The guide was knowledgeable and super friendly.”</p>
+      <p class="text-sm text-right">- Sarah, USA</p>
+    </div>
+    <div class="bg-gray-800 p-4 rounded">
+      <p class="italic">“Absolutely stunning landscapes and real nomadic hospitality!”</p>
+      <p class="text-sm text-right">- Hiroshi, Japan</p>
+    </div>
+    <div class="bg-gray-800 p-4 rounded">
+      <p class="italic">“Mongolia was magical and unforgettable, all thanks to this tour!”</p>
+      <p class="text-sm text-right">- Maria, Spain</p>
+    </div>
+  </div>
+</section>
+
 <section id="contact" class="section hidden max-w-3xl mx-auto my-6">
   <h2 class="text-2xl font-semibold mb-2">Contact Us</h2>
   <form class="space-y-4">
@@ -65,7 +85,9 @@
   <p class="mt-4">Or contact directly: <br> Phone: +976-12345678 <br> Email: info@nomadic.mn</p>
 </section>
 
-  </main>  <script>
+  </main>  <footer class="text-center py-6 text-gray-400">
+    &copy; 2025 Nomadic Adventure Tours. All rights reserved.
+  </footer>  <script>
     function showSection(id) {
       document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
       document.getElementById(id).classList.remove('hidden');
