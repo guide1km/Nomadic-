@@ -102,3 +102,39 @@
     }
   </script></body>
 </html>
+<!-- Login Tab --><section id="login" class="tab-section">
+  <h1 class="text-3xl font-bold text-center text-red-600">Нэвтрэх</h1>
+  <form onsubmit="login(event)" class="space-y-4 max-w-md mx-auto mt-6">
+    <input id="login-username" type="text" placeholder="Нэвтрэх нэр" class="w-full p-2 border rounded text-black" required>
+    <input id="login-password" type="password" placeholder="Нууц үг" class="w-full p-2 border rounded text-black" required>
+    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded">Нэвтрэх</button>
+  </form>
+  <div id="login-error" class="hidden mt-4 text-center text-red-600 font-semibold">Нэвтрэх нэр эсвэл нууц үг буруу байна!</div>
+</section><!-- Admin Tab --><section id="admin" class="tab-section">
+  <h1 class="text-3xl font-bold text-center text-black">Админ хэсэг</h1>
+  <div class="h-96 bg-gray-200 rounded-lg p-4 mt-4">
+    Админд зориулсан мэдээлэл, удирдлага энд байрлана.
+  </div>
+</section><!-- Add to Footer Nav --><button onclick="setTab('login', this)" class="tab-button flex flex-col items-center justify-center py-2">
+  <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c2.21 0 4-1.79 4-4S14.21 3 12 3 8 4.79 8 7s1.79 4 4 4zM2 21h20c0-4.42-4.48-8-10-8S2 16.58 2 21z"/>
+  </svg>
+  Нэвтрэх
+</button><script>
+  let isAdmin = false;
+
+  function login(e) {
+    e.preventDefault();
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+
+    if (username === 'admin' && password === 'admin123') {
+      isAdmin = true;
+      document.getElementById('login-error').classList.add('hidden');
+      document.getElementById('admin').classList.add('active');
+      setTab('admin', document.querySelector("button[onclick*=setTab][innerText*='Профайл']"));
+    } else {
+      document.getElementById('login-error').classList.remove('hidden');
+    }
+  }
+</script>
