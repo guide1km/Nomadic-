@@ -1,31 +1,104 @@
-<footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-50">
-  <nav class="flex justify-around text-center text-xs text-gray-600">
-    <button onclick="setTab('home', this)" class="tab-button flex flex-col items-center justify-center py-2 text-purple-600">
-      <img src="https://raw.githubusercontent.com/guide1km/Nomadic-/main/logo.png" class="w-6 h-6 mb-1" alt="Нүүр">
-      Нүүр
-    </button>
-    <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V4a1 1 0 00-1-1H5a1 1 0 00-1 1v9"/>
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8m-4-4v4"/>
-      </svg>
-      Ангилал
-    </button>
-    <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <img src="https://raw.githubusercontent.com/guide1km/Nomadic-/main/horse.jpg" class="w-6 h-6 mb-1" alt="Захиалга">
-      Захиалга
-    </button>
-    <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5m0 0a2 2 0 012-2h10a2 2 0 012 2v0a2 2 0 01-2 2H7a2 2 0 01-2-2zM5 11h14M5 17h14"/>
-      </svg>
-      Хадгалсан
-    </button>
-    <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c2.21 0 4-1.79 4-4S14.21 3 12 3 8 4.79 8 7s1.79 4 4 4zM2 21h20c0-4.42-4.48-8-10-8S2 16.58 2 21z"/>
-      </svg>
-      Профайл
-    </button>
-  </nav>
-</footer>
+<!DOCTYPE html><html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomadic Tours App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .tab-section { display: none; }
+    .tab-section.active { display: block; }
+  </style>
+</head>
+<body class="bg-white text-black font-sans pb-24">
+  <main class="px-4 pt-6">
+    <section id="home" class="tab-section active">
+      <h1 class="text-3xl font-bold text-center text-purple-700">Нүүр</h1>
+      <div class="h-96 bg-purple-100 rounded-lg p-4 mt-4">Энэ бол Нүүр хэсгийн контент.</div>
+    </section><section id="categories" class="tab-section">
+  <h1 class="text-3xl font-bold text-center text-green-700">Аяллын төрлүүд</h1>
+  <div class="grid md:grid-cols-2 gap-4 mt-4">
+    <div class="border rounded-lg p-4 shadow">
+      <img src="gobi-tour.jpg" class="rounded mb-2 w-full h-40 object-cover" alt="Gobi Tour">
+      <h2 class="text-xl font-semibold">Говь цөл аялал</h2>
+      <p class="text-sm">3 өдөр | Элсэн манхан | Тэмээ унах | Нүүдэлчидтэй танилцах</p>
+    </div>
+    <div class="border rounded-lg p-4 shadow">
+      <img src="ice_tour.jpg" class="rounded mb-2 w-full h-40 object-cover" alt="Ice Cave">
+      <h2 class="text-xl font-semibold">Мөсөн агуй</h2>
+      <p class="text-sm">2 өдөр | Мөсөн гол | Агуй | Өвлийн байгаль</p>
+    </div>
+    <div class="border rounded-lg p-4 shadow">
+      <img src="horse.jpg" class="rounded mb-2 w-full h-40 object-cover" alt="Horse Tour">
+      <h2 class="text-xl font-semibold">Морин аялал</h2>
+      <p class="text-sm">5 өдөр | Уулын зам | Майхан | Малчидтай амьдрах</p>
+    </div>
+  </div>
+</section>
+
+<section id="featured" class="tab-section">
+  <h1 class="text-3xl font-bold text-center text-yellow-600">Захиалга өгөх</h1>
+  <form onsubmit="submitFeaturedOrder(event)" class="space-y-4 max-w-md mx-auto mt-6">
+    <input id="f-name" type="text" placeholder="Нэр" class="w-full p-2 border rounded text-black" required>
+    <input id="f-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
+    <input id="f-phone" type="tel" placeholder="Утас" class="w-full p-2 border rounded text-black" required>
+    <select id="f-tour" class="w-full p-2 border rounded text-black" required>
+      <option disabled selected value="">-- Аялал сонгох --</option>
+      <option>Говь аялал</option>
+      <option>Мөсөн агуй</option>
+      <option>Морин аялал</option>
+    </select>
+    <input id="f-date" type="date" class="w-full p-2 border rounded text-black" required>
+    <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Захиалга илгээх</button>
+  </form>
+  <div id="f-success" class="hidden mt-4 text-center text-green-600 font-semibold">Захиалга амжилттай илгээгдлээ!</div>
+</section>
+
+<section id="saved" class="tab-section">
+  <h1 class="text-3xl font-bold text-center text-blue-700">Хадгалсан</h1>
+  <div class="h-96 bg-blue-100 rounded-lg p-4 mt-4">Хадгалсан зүйлс энд байна.</div>
+</section>
+
+<section id="profile" class="tab-section">
+  <h1 class="text-3xl font-bold text-center text-gray-700">Профайл</h1>
+  <div class="h-96 bg-gray-100 rounded-lg p-4 mt-4">Профайл мэдээлэл.</div>
+</section>
+
+  </main>  <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-50">
+    <nav class="flex justify-around text-center text-xs text-gray-600">
+      <button onclick="setTab('home', this)" class="tab-button flex flex-col items-center justify-center py-2 text-purple-600">
+        <img src="https://raw.githubusercontent.com/guide1km/Nomadic-/main/logo.png" class="w-6 h-6 object-contain mb-1" alt="Нүүр">
+        Нүүр
+      </button>
+      <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V4a1 1 0 00-1-1H5a1 1 0 00-1 1v9"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8m-4-4v4"/>
+        </svg>
+        Ангилал
+      </button>
+      <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <img src="https://raw.githubusercontent.com/guide1km/Nomadic-/main/horse.jpg" class="w-6 h-6 object-contain mb-1" alt="Захиалга">
+        Захиалга
+      </button>
+      <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5m0 0a2 2 0 012-2h10a2 2 0 012 2v0a2 2 0 01-2 2H7a2 2 0 01-2-2zM5 11h14M5 17h14"/>
+        </svg>
+        Хадгалсан
+      </button>
+      <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c2.21 0 4-1.79 4-4S14.21 3 12 3 8 4.79 8 7s1.79 4 4 4zM2 21h20c0-4.42-4.48-8-10-8S2 16.58 2 21z"/>
+        </svg>
+        Профайл
+      </button>
+    </nav>
+  </footer>  <script>
+    function setTab(id, btn) {
+      document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('text-purple-600'));
+      btn.classList.add('text-purple-600');
+    }
+  </script></body>
+</html>
