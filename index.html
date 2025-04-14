@@ -2,46 +2,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shoppy Style Navigation</title>
+  <title>Nomadic Tours App</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";const firebaseConfig = {
-  apiKey: "AIzaSyD-EXAMPLE-1234567890abcdefghij",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdefghij123456"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.submitFeaturedOrder = async function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById('f-name').value;
-  const email = document.getElementById('f-email').value;
-  const phone = document.getElementById('f-phone').value;
-  const tour = document.getElementById('f-tour').value;
-  const date = document.getElementById('f-date').value;
-
-  if (!name || !email || !phone || !tour || !date) return;
-
-  try {
-    await addDoc(collection(db, "featuredOrders"), {
-      name, email, phone, tour, date,
-      createdAt: new Date().toISOString()
-    });
-    document.getElementById('f-success').classList.remove('hidden');
-    e.target.reset();
-  } catch (err) {
-    alert("Амжилтгүй: " + err.message);
-  }
-}
-
-  </script>
   <style>
     .tab-section { display: none; }
     .tab-section.active { display: block; }
@@ -74,16 +36,16 @@ window.submitFeaturedOrder = async function(e) {
 </section>
 
 <section id="featured" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-yellow-600">Онцлох аялал захиалга</h1>
+  <h1 class="text-3xl font-bold text-center text-yellow-600">Захиалга өгөх</h1>
   <form onsubmit="submitFeaturedOrder(event)" class="space-y-4 max-w-md mx-auto mt-6">
     <input id="f-name" type="text" placeholder="Нэр" class="w-full p-2 border rounded text-black" required>
     <input id="f-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
     <input id="f-phone" type="tel" placeholder="Утас" class="w-full p-2 border rounded text-black" required>
     <select id="f-tour" class="w-full p-2 border rounded text-black" required>
       <option disabled selected value="">-- Аялал сонгох --</option>
-      <option>Онцлох аялал 1</option>
-      <option>Онцлох аялал 2</option>
-      <option>Онцлох аялал 3</option>
+      <option>Говь аялал</option>
+      <option>Мөсөн агуй</option>
+      <option>Морин аялал</option>
     </select>
     <input id="f-date" type="date" class="w-full p-2 border rounded text-black" required>
     <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Захиалга илгээх</button>
@@ -104,9 +66,7 @@ window.submitFeaturedOrder = async function(e) {
   </main>  <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-50">
     <nav class="flex justify-around text-center text-xs text-gray-600">
       <button onclick="setTab('home', this)" class="tab-button flex flex-col items-center justify-center py-2 text-purple-600">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2h-4a2 2 0 01-2-2v-4H9v4a2 2 0 01-2 2H3a2 2 0 01-2-2V9z"/>
-        </svg>
+        <img src="/mnt/data/file-SWnzneyQmB6wmfG3u6Ywo7" class="w-6 h-6 mb-1" alt="Нүүр">
         Нүүр
       </button>
       <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
@@ -117,10 +77,8 @@ window.submitFeaturedOrder = async function(e) {
         Ангилал
       </button>
       <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 7.292M12 12v8"/>
-        </svg>
-        Онцлох
+        <img src="/mnt/data/file-3zRegvBWP14sAFRgdtLJDU" class="w-6 h-6 mb-1" alt="Захиалга">
+        Захиалга
       </button>
       <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
