@@ -4,12 +4,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shoppy Style Navigation</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";const firebaseConfig = {
+  apiKey: "AIzaSyD-EXAMPLE-1234567890abcdefghij",
+  authDomain: "your-project-id.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project-id.appspot.com",
+  messagingSenderId: "1234567890",
+  appId: "1:1234567890:web:abcdefghij123456"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.submitFeaturedOrder = async function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById('f-name').value;
+  const email = document.getElementById('f-email').value;
+  const phone = document.getElementById('f-phone').value;
+  const tour = document.getElementById('f-tour').value;
+  const date = document.getElementById('f-date').value;
+
+  if (!name || !email || !phone || !tour || !date) return;
+
+  try {
+    await addDoc(collection(db, "featuredOrders"), {
+      name, email, phone, tour, date,
+      createdAt: new Date().toISOString()
+    });
+    document.getElementById('f-success').classList.remove('hidden');
+    e.target.reset();
+  } catch (err) {
+    alert("Амжилтгүй: " + err.message);
+  }
+}
+
+  </script>
   <style>
     .tab-section { display: none; }
     .tab-section.active { display: block; }
   </style>
 </head>
-<body class="bg-white text-black font-sans pb-20">
+<body class="bg-white text-black font-sans pb-24">
   <main class="px-4 pt-6">
     <section id="home" class="tab-section active">
       <h1 class="text-3xl font-bold text-center text-purple-700">Нүүр</h1>
@@ -37,18 +75,20 @@
 
 <section id="featured" class="tab-section">
   <h1 class="text-3xl font-bold text-center text-yellow-600">Онцлох аялал захиалга</h1>
-  <form class="space-y-4 max-w-md mx-auto mt-6">
-    <input type="text" placeholder="Нэр" class="w-full p-2 border rounded text-black" required>
-    <input type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
-    <input type="tel" placeholder="Утас" class="w-full p-2 border rounded text-black" required>
-    <select class="w-full p-2 border rounded text-black">
+  <form onsubmit="submitFeaturedOrder(event)" class="space-y-4 max-w-md mx-auto mt-6">
+    <input id="f-name" type="text" placeholder="Нэр" class="w-full p-2 border rounded text-black" required>
+    <input id="f-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
+    <input id="f-phone" type="tel" placeholder="Утас" class="w-full p-2 border rounded text-black" required>
+    <select id="f-tour" class="w-full p-2 border rounded text-black" required>
+      <option disabled selected value="">-- Аялал сонгох --</option>
       <option>Онцлох аялал 1</option>
       <option>Онцлох аялал 2</option>
       <option>Онцлох аялал 3</option>
     </select>
-    <input type="date" class="w-full p-2 border rounded text-black" required>
+    <input id="f-date" type="date" class="w-full p-2 border rounded text-black" required>
     <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Захиалга илгээх</button>
   </form>
+  <div id="f-success" class="hidden mt-4 text-center text-green-600 font-semibold">Захиалга амжилттай илгээгдлээ!</div>
 </section>
 
 <section id="saved" class="tab-section">
