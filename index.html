@@ -2,165 +2,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nomadic Adventure Tours</title>  <!-- SEO + Social -->  <meta name="description" content="Discover Mongolia through unique nomadic adventure tours including the Gobi Desert, horse riding, and ice cave explorations.">
-  <meta property="og:title" content="Nomadic Adventure Tours" />
-  <meta property="og:description" content="Explore the beauty of Mongolia with our unique adventure tours." />
-  <meta property="og:image" content="https://nomadic-woad.vercel.app/nature.jpg" />
-  <meta property="og:url" content="https://nomadic-woad.vercel.app" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Nomadic Adventure Tours" />
-  <meta name="twitter:description" content="Explore the beauty of Mongolia with our unique adventure tours." />
-  <meta name="twitter:image" content="https://nomadic-woad.vercel.app/nature.jpg" />  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      background-color: #000;
-      color: white;
-    }
-    .hero {
-      background-color: #0c5e31;
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-    .hero img {
-      width: 100px;
-      margin-bottom: 1rem;
-    }
-    .nav-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .nav-buttons button {
-      padding: 0.5rem 1rem;
-      background-color: white;
-      color: #28a745;
-      border: 2px solid #fff;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .section {
-      display: none;
-      padding: 1rem;
-      max-width: 600px;
-      margin: 1rem auto;
-      background: #111;
-      border-radius: 10px;
-    }
-    .section.active {
-      display: block;
-    }
-    .image-box img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .rating {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .stars span {
-      font-size: 2rem;
-      cursor: pointer;
-      color: #ccc;
-    }
-    .stars span.selected {
-      color: gold;
-    }
-    .submit-button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .review-summary {
-      margin-top: 2rem;
-      padding: 1rem;
-      background: #222;
-      border-radius: 10px;
-    }
-    .bar {
-      height: 10px;
-      background: gold;
-      margin: 4px 0;
-      border-radius: 4px;
-      width: 0;
-    }
-  </style></head>
-<body>
-  <div class="hero">
-    <img src="logo.png" alt="Logo" />
-    <h1>Nomadic Adventure Tours</h1>
-    <div class="nav-buttons">
-      <button onclick="showSection('home')">Home</button>
-      <button onclick="showSection('tours')">Tours</button>
-      <button onclick="showSection('contact')">Contact</button>
-    </div>
-  </div>  <div id="home" class="section active">
-    <h2>Welcome</h2>
-    <p>Discover Mongolia with us!</p>
-    <div class="image-box"><img src="nature.jpg" alt="Nature"></div>
-    <div class="image-box"><img src="horse.jpg" alt="Horse"></div>
-    <div class="image-box"><img src="gobi-tour.jpg" alt="Gobi"></div>
-  </div>  <div id="tours" class="section">
-    <h2>Tours</h2>
-    <div class="image-box"><img src="logo.png" alt="Tour Logo"></div>
-    <div class="image-box"><img src="ice_tour.jpg" alt="Ice Tour"></div>
-    <p>Rate this tour:</p>
-    <div class="rating">
-      <div class="stars" id="stars">
-        <span data-value="1" onclick="rate(this)">&#9733;</span>
-        <span data-value="2" onclick="rate(this)">&#9733;</span>
-        <span data-value="3" onclick="rate(this)">&#9733;</span>
-        <span data-value="4" onclick="rate(this)">&#9733;</span>
-        <span data-value="5" onclick="rate(this)">&#9733;</span>
+  <title>Nomadic Adventure Tours</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta name="description" content="Discover Mongolia through unique nomadic adventure tours including the Gobi Desert, horse riding, and ice cave explorations.">
+</head>
+<body class="bg-black text-white font-sans">
+  <header class="bg-green-800 text-center py-6">
+    <img src="logo.png" alt="Logo" class="mx-auto w-24 mb-4">
+    <h1 class="text-4xl font-bold">Nomadic Adventure Tours</h1>
+    <nav class="mt-4 flex justify-center space-x-4">
+      <button onclick="showSection('home')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Home</button>
+      <button onclick="showSection('tours')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Tours</button>
+      <button onclick="showSection('contact')" class="px-4 py-2 bg-white text-green-700 rounded hover:bg-green-100">Contact</button>
+    </nav>
+  </header>  <main class="px-4">
+    <section id="home" class="section active max-w-3xl mx-auto my-6">
+      <h2 class="text-2xl font-semibold mb-2">Welcome</h2>
+      <p class="mb-4">Discover Mongolia with us!</p>
+      <div class="grid md:grid-cols-3 gap-4">
+        <img src="nature.jpg" alt="Nature" class="rounded shadow">
+        <img src="horse.jpg" alt="Horse" class="rounded shadow">
+        <img src="gobi-tour.jpg" alt="Gobi" class="rounded shadow">
       </div>
-      <textarea rows="3" cols="40" placeholder="Write a comment..."></textarea>
-      <br>
-      <button class="submit-button" onclick="submitRating()">Submit</button>
-      <p id="rating-value" style="display:none; color: yellow;"></p>
-      <p id="thanks" style="display:none; color: lightgreen;">Thanks!</p>
-      <div class="review-summary">
-        <h3>Average Rating: <span id="avg-rating">0</span> / 5</h3>
-        <p>Total Reviews: <span id="review-count">0</span></p>
-        <div>5 stars: <div class="bar" id="bar-5"></div></div>
-        <div>4 stars: <div class="bar" id="bar-4"></div></div>
-        <div>3 stars: <div class="bar" id="bar-3"></div></div>
-        <div>2 stars: <div class="bar" id="bar-2"></div></div>
-        <div>1 star: <div class="bar" id="bar-1"></div></div>
+    </section><section id="tours" class="section hidden max-w-3xl mx-auto my-6">
+  <h2 class="text-2xl font-semibold mb-4">Tours</h2>
+  <div class="grid md:grid-cols-2 gap-4">
+    <img src="logo.png" alt="Tour Logo" class="rounded shadow">
+    <img src="ice_tour.jpg" alt="Ice Tour" class="rounded shadow">
+  </div>
+
+  <div class="mt-6">
+    <p class="mb-2">Rate this tour:</p>
+    <div class="flex justify-center space-x-2 text-3xl text-gray-400" id="stars">
+      <span data-value="1" onclick="rate(this)">&#9733;</span>
+      <span data-value="2" onclick="rate(this)">&#9733;</span>
+      <span data-value="3" onclick="rate(this)">&#9733;</span>
+      <span data-value="4" onclick="rate(this)">&#9733;</span>
+      <span data-value="5" onclick="rate(this)">&#9733;</span>
+    </div>
+    <textarea rows="3" class="w-full mt-3 p-2 text-black rounded" placeholder="Write a comment..."></textarea>
+    <button class="mt-3 px-4 py-2 bg-green-600 text-white rounded" onclick="submitRating()">Submit</button>
+    <p id="rating-value" class="mt-2 text-yellow-300 hidden"></p>
+    <p id="thanks" class="text-green-400 hidden">Thanks!</p>
+
+    <div class="mt-6 bg-gray-800 p-4 rounded">
+      <h3 class="text-lg font-semibold">Average Rating: <span id="avg-rating">0</span> / 5</h3>
+      <p>Total Reviews: <span id="review-count">0</span></p>
+      <div class="space-y-2 mt-2">
+        <div>5 stars: <div class="bar h-2 bg-yellow-400 rounded" id="bar-5"></div></div>
+        <div>4 stars: <div class="bar h-2 bg-yellow-400 rounded" id="bar-4"></div></div>
+        <div>3 stars: <div class="bar h-2 bg-yellow-400 rounded" id="bar-3"></div></div>
+        <div>2 stars: <div class="bar h-2 bg-yellow-400 rounded" id="bar-2"></div></div>
+        <div>1 star: <div class="bar h-2 bg-yellow-400 rounded" id="bar-1"></div></div>
       </div>
     </div>
-  </div>  <div id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>Phone: +976-12345678</p>
-    <p>Email: info@nomadic.mn</p>
-  </div>  <script>
+  </div>
+</section>
+
+<section id="contact" class="section hidden max-w-3xl mx-auto my-6">
+  <h2 class="text-2xl font-semibold mb-2">Contact Us</h2>
+  <p>Phone: +976-12345678</p>
+  <p>Email: info@nomadic.mn</p>
+</section>
+
+  </main>  <script>
     let selectedRating = 0;
     const ratingCounts = [0, 0, 0, 0, 0];
     let totalRatings = 0;
 
     function showSection(id) {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      const target = document.getElementById(id);
-      if (target) target.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
     }
 
     function rate(el) {
       const stars = el.parentElement.querySelectorAll('span');
       const index = parseInt(el.getAttribute('data-value'));
-      stars.forEach(star => star.classList.remove('selected'));
+      stars.forEach(star => star.classList.remove('text-yellow-400'));
 
       if (selectedRating === index) {
         selectedRating = 0;
       } else {
         for (let i = 0; i < index; i++) {
-          stars[i].classList.add('selected');
+          stars[i].classList.add('text-yellow-400');
         }
         selectedRating = index;
       }
@@ -182,9 +106,9 @@
           document.getElementById(`bar-${5 - i}`).style.width = percent + '%';
         }
 
-        document.getElementById('rating-value').style.display = 'block';
+        document.getElementById('rating-value').classList.remove('hidden');
         document.getElementById('rating-value').innerText = `You rated: ${selectedRating} star${selectedRating > 1 ? 's' : ''}`;
-        document.getElementById('thanks').style.display = 'block';
+        document.getElementById('thanks').classList.remove('hidden');
       }
     }
   </script></body>
