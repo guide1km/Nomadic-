@@ -59,27 +59,30 @@
   </div>
 </section>
 
-  <button onclick="setTab('home', this)" class="tab-button flex flex-col items-center justify-center py-2">
-  <span class="text-2xl mb-1">🏡</span>
-  <span>Нүүр</span>
-  </button>
-      <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
-  <span class="text-2xl mb-1">🧳</span>
-  <span>Ангилал</span>
-      <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
-  <span class="text-2xl mb-1">🛒</span>
-  <span>Захиалга</span>
-      </button>
-  <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
-  <span class="text-2xl mb-1">❤️</span>
-  <span>Хадгалсан</span>
-  </button>
-  <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">
-  <span class="text-2xl mb-1">👤</span>
-  <span>Профайл</span>
-  </button>
-    </nav>
-  </footer>  <script>
+  <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-50">
+  <nav class="flex justify-around text-center text-xs text-gray-600">
+    <button onclick="setTab('home', this)" class="tab-button flex flex-col items-center justify-center py-2">
+      <span class="text-2xl mb-1">🏡</span>
+      <span>Нүүр</span>
+    </button>
+    <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
+      <span class="text-2xl mb-1">🧳</span>
+      <span>Ангилал</span>
+    </button>
+    <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
+      <span class="text-2xl mb-1">🛒</span>
+      <span>Захиалга</span>
+    </button>
+    <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
+      <span class="text-2xl mb-1">❤️</span>
+      <span>Хадгалсан</span>
+    </button>
+    <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">
+      <span class="text-2xl mb-1">👤</span>
+      <span>Профайл</span>
+    </button>
+  </nav>
+  </footer>
     let isAdmin = false;
 
     function setTab(id, btn) {
