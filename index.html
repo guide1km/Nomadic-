@@ -17,21 +17,7 @@
     </section><section id="categories" class="tab-section">
   <h1 class="text-3xl font-bold text-center text-green-700">Аяллын төрлүүд</h1>
   <div class="grid md:grid-cols-2 gap-4 mt-4">
-    <div class="border rounded-lg p-4 shadow">
-      <img src="gobi-tour.jpg" class="rounded mb-2 w-full h-40 object-cover" alt="Gobi Tour">
-      <h2 class="text-xl font-semibold">Говь цөл аялал</h2>
-      <p class="text-sm">3 өдөр | Элсэн манхан | Тэмээ унах | Нүүдэлчидтэй танилцах</p>
-    </div>
-    <div class="border rounded-lg p-4 shadow">
-      <img src="ice_tour.jpg" class="rounded mb-2 w-full h-40 object-cover" alt="Ice Cave">
-      <h2 class="text-xl font-semibold">Мөсөн агуй</h2>
-      <p class="text-sm">2 өдөр | Мөсөн гол | Агуй | Өвлийн байгаль</p>
-    </div>
-    <div class="border rounded-lg p-4 shadow">
-      <img src="horse.jpg" class="rounded mb-2 w-full h-40 object-cover" alt="Horse Tour">
-      <h2 class="text-xl font-semibold">Морин аялал</h2>
-      <p class="text-sm">5 өдөр | Уулын зам | Майхан | Малчидтай амьдрах</p>
-    </div>
+    <!-- Cards here -->
   </div>
 </section>
 
@@ -61,7 +47,15 @@
 <section id="profile" class="tab-section">
   <h1 class="text-3xl font-bold text-center text-gray-700">Профайл</h1>
   <div id="profile-content" class="h-96 bg-gray-100 rounded-lg p-4 mt-4">
-    <!-- renderProfile() энэ хэсэгт контент оруулна -->
+    <!-- renderProfile() content will be injected here -->
+  </div>
+</section>
+
+<section id="admin" class="tab-section">
+  <h1 class="text-3xl font-bold text-center text-black">Админ хэсэг</h1>
+  <div class="h-96 overflow-y-auto bg-gray-200 rounded-lg p-4 mt-4">
+    <h2 class="text-xl font-semibold mb-2">Бүртгэлтэй хэрэглэгчид</h2>
+    <ul id="user-list" class="space-y-2 text-sm text-gray-800"></ul>
   </div>
 </section>
 
@@ -71,183 +65,117 @@
         <img src="https://raw.githubusercontent.com/guide1km/Nomadic-/main/logo.png" class="w-6 h-6 object-contain mb-1" alt="Нүүр">
         Нүүр
       </button>
-      <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V4a1 1 0 00-1-1H5a1 1 0 00-1 1v9"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8m-4-4v4"/>
-        </svg>
-        Ангилал
-      </button>
-      <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
-        <img src="https://raw.githubusercontent.com/guide1km/Nomadic-/main/horse.jpg" class="w-6 h-6 object-contain mb-1" alt="Захиалга">
-        Захиалга
-      </button>
-      <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5m0 0a2 2 0 012-2h10a2 2 0 012 2v0a2 2 0 01-2 2H7a2 2 0 01-2-2zM5 11h14M5 17h14"/>
-        </svg>
-        Хадгалсан
-      </button>
-      <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c2.21 0 4-1.79 4-4S14.21 3 12 3 8 4.79 8 7s1.79 4 4 4zM2 21h20c0-4.42-4.48-8-10-8S2 16.58 2 21z"/>
-        </svg>
-        Профайл
-      </button>
+      <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">Ангилал</button>
+      <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">Захиалга</button>
+      <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">Хадгалсан</button>
+      <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">Профайл</button>
     </nav>
   </footer>  <script>
+    let isAdmin = false;
+
     function setTab(id, btn) {
       document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('text-purple-600'));
       btn.classList.add('text-purple-600');
     }
-  </script></body>
-</html>
-<!-- Login Tab --><section id="login" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-red-600">Нэвтрэх</h1>
-  <form onsubmit="login(event)" class="space-y-4 max-w-md mx-auto mt-6">
-    <input id="login-username" type="text" placeholder="Нэвтрэх нэр" class="w-full p-2 border rounded text-black" required>
-    <input id="login-password" type="password" placeholder="Нууц үг" class="w-full p-2 border rounded text-black" required>
-    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded">Нэвтрэх</button>
-  </form>
-  <div id="login-error" class="hidden mt-4 text-center text-red-600 font-semibold">Нэвтрэх нэр эсвэл нууц үг буруу байна!</div>
-</section><!-- Admin Tab --><section id="admin" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-black">Админ хэсэг</h1>
-  <div class="h-96 bg-gray-200 rounded-lg p-4 mt-4">
-    Админд зориулсан мэдээлэл, удирдлага энд байрлана.
-  <!-- Admin Tab --><section id="admin" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-black">Админ хэсэг</h1>
-  <div class="h-96 overflow-y-auto bg-gray-200 rounded-lg p-4 mt-4">
-    <h2 class="text-xl font-semibold mb-2">Бүртгэлтэй хэрэглэгчид</h2>
-    <ul id="user-list" class="space-y-2 text-sm text-gray-800"></ul>
-  </div>
-</section><script>
-  let isAdmin = false;
 
-  function login(e) {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value.trim();
-    const phone = document.getElementById('login-phone').value.trim();
-    const password = document.getElementById('login-password').value;
-    const errorDiv = document.getElementById('login-error');
+    function login(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const phone = document.getElementById('login-phone').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errorDiv = document.getElementById('login-error');
 
-    if (!email.includes('@')) {
-      errorDiv.textContent = "Имэйл буруу байна!";
-      errorDiv.classList.remove('hidden');
-      return;
+      if (!email.includes('@')) {
+        errorDiv.textContent = "Имэйл буруу байна!";
+        errorDiv.classList.remove('hidden'); return;
+      }
+      if (!/^[0-9]{8}$/.test(phone)) {
+        errorDiv.textContent = "Утасны дугаар 8 оронтой байх ёстой!";
+        errorDiv.classList.remove('hidden'); return;
+      }
+      if (password.length < 6) {
+        errorDiv.textContent = "Нууц үг дор хаяж 6 тэмдэгт байх ёстой!";
+        errorDiv.classList.remove('hidden'); return;
+      }
+      if (email === "admin@nomadic.mn" && password === "admin123" && phone === "88112233") {
+        isAdmin = true;
+        const userInfo = { email, phone, loginTime: new Date().toISOString() };
+        const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
+        users.push(userInfo);
+        localStorage.setItem("allUsers", JSON.stringify(users));
+        localStorage.setItem("isAdmin", "true");
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        renderProfile();
+        renderAdminUsers();
+        setTab('profile', document.querySelectorAll('.tab-button')[4]);
+      } else {
+        errorDiv.textContent = "Имэйл, утас эсвэл нууц үг буруу байна!";
+        errorDiv.classList.remove('hidden');
+      }
     }
 
-    if (!/^[0-9]{8}$/.test(phone)) {
-      errorDiv.textContent = "Утасны дугаар 8 оронтой байх ёстой!";
-      errorDiv.classList.remove('hidden');
-      return;
-    }
-
-    if (password.length < 6) {
-      errorDiv.textContent = "Нууц үг дор хаяж 6 тэмдэгт байх ёстой!";
-      errorDiv.classList.remove('hidden');
-      return;
-    }
-
-    if (email === "admin@nomadic.mn" && password === "admin123" && phone === "88112233") {
-      isAdmin = true;
-      const userInfo = {
-        email,
-        phone,
-        loginTime: new Date().toISOString()
-      };
-
-        <script>
-  function login(event) {
-    event.preventDefault();
-    const email = document.getElementById("login-email").value.trim();
-    const phone = document.getElementById("login-phone").value.trim();
-    const password = document.getElementById("login-password").value;
-    const errorDiv = document.getElementById("login-error");
-
-    if (!email.includes("@")) {
-      errorDiv.textContent = "Имэйл буруу байна!";
-      errorDiv.classList.remove("hidden");
-      return;
-    }
-    if (!/^[0-9]{8}$/.test(phone)) {
-      errorDiv.textContent = "Утасны дугаар 8 оронтой байх ёстой!";
-      errorDiv.classList.remove("hidden");
-      return;
-    }
-    if (password.length < 6) {
-      errorDiv.textContent = "Нууц үг дор хаяж 6 тэмдэгт байх ёстой!";
-      errorDiv.classList.remove("hidden");
-      return;
-    }
-
-    if (email === "admin@nomadic.mn" && password === "admin123" && phone === "88112233") {
-      const userInfo = {
-        email,
-        phone,
-        loginTime: new Date().toISOString()
-      };
-
-      let users = JSON.parse(localStorage.getItem("allUsers") || "[]");
-      users.push(userInfo);
-      localStorage.setItem("allUsers", JSON.stringify(users));
-      localStorage.setItem("isAdmin", "true");
-      localStorage.setItem("userInfo", JSON.stringify(userInfo));
-
-      renderProfile();
-      renderAdminUsers();
-      setTab('profile', document.querySelectorAll('.tab-button')[4]);
-    } else {
-      errorDiv.textContent = "Имэйл, утас эсвэл нууц үг буруу байна!";
-      errorDiv.classList.remove("hidden");
-    }
-  }
-
-  function logout() {
-    isAdmin = false;
-    localStorage.removeItem("isAdmin");
-    localStorage.removeItem("userInfo");
-    renderProfile();
-  }
-
-  function updateUser(e) {
-    e.preventDefault();
-    const newPhone = document.getElementById('update-phone').value.trim();
-    const user = JSON.parse(localStorage.getItem("userInfo"));
-    if (!/^[0-9]{8}$/.test(newPhone)) {
-      alert("Утасны дугаар 8 оронтой байх ёстой!");
-      return;
-    }
-    user.phone = newPhone;
-    localStorage.setItem("userInfo", JSON.stringify(user));
-  }
-
-  function renderProfile() {
-    const container = document.getElementById('profile-content');
-    const user = JSON.parse(localStorage.getItem("userInfo") || "null");
-
-    if (user && user.email === "admin@nomadic.mn") {
-      isAdmin = true;
-      localStorage.setItem("isAdmin", "true");
-    } else {
+    function logout() {
       isAdmin = false;
       localStorage.removeItem("isAdmin");
+      localStorage.removeItem("userInfo");
+      renderProfile();
     }
 
-    if (isAdmin && user) {
-      container.innerHTML = `
-        <div class="text-center space-y-4">
-          <p class="text-lg text-green-700 font-semibold">Сайн байна уу, ${user.email}!</p>
-          <p class="text-sm text-gray-600">Утас: ${user.phone}</p>
-          <p class="text-sm text-gray-600">Нэвтэрсэн: ${new Date(user.loginTime).toLocaleString()}</p>
-          <form onsubmit="updateUser(event)" class="mt-4">
-            <input id="update-phone" type="tel" value="${user.phone}" class="p-2 border rounded text-black" required>
-            <button type="submit" class="ml-2 bg-blue-600 text-white px-4 py-2 rounded">Шинэчлэх</button>
+    function updateUser(e) {
+      e.preventDefault();
+      const newPhone = document.getElementById('update-phone').value.trim();
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      if (!/^[0-9]{8}$/.test(newPhone)) {
+        alert("Утасны дугаар 8 оронтой байх ёстой!"); return;
+      }
+      user.phone = newPhone;
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      renderProfile();
+    }
+
+    function renderProfile() {
+      const container = document.getElementById('profile-content');
+      const user = JSON.parse(localStorage.getItem("userInfo") || "null");
+      isAdmin = user && user.email === "admin@nomadic.mn";
+      localStorage.setItem("isAdmin", isAdmin ? "true" : "false");
+
+      if (isAdmin && user) {
+        container.innerHTML = `
+          <div class="text-center space-y-4">
+            <p class="text-lg text-green-700 font-semibold">Сайн байна уу, ${user.email}!</p>
+            <p class="text-sm text-gray-600">Утас: ${user.phone}</p>
+            <p class="text-sm text-gray-600">Нэвтэрсэн: ${new Date(user.loginTime).toLocaleString()}</p>
+            <form onsubmit="updateUser(event)" class="mt-4">
+              <input id="update-phone" type="tel" value="${user.phone}" class="p-2 border rounded text-black" required>
+              <button type="submit" class="ml-2 bg-blue-600 text-white px-4 py-2 rounded">Шинэчлэх</button>
+            </form>
+            <button onclick="setTab('admin', this); renderAdminUsers();" class="bg-blue-600 text-white px-4 py-2 rounded">Админ хэсэг</button>
+            <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">Гарах</button>
+          </div>`;
+      } else {
+        container.innerHTML = `
+          <form onsubmit="login(event)" class="space-y-4 max-w-md mx-auto mt-4">
+            <input id="login-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
+            <input id="login-phone" type="tel" placeholder="Утас (8 оронтой)" class="w-full p-2 border rounded text-black" pattern="\\d{8}" required>
+            <input id="login-password" type="password" placeholder="Нууц үг (6+ тэмдэгт)" class="w-full p-2 border rounded text-black" required>
+            <button type="submit" class="bg-gray-700 text-white px-4 py-2 rounded">Нэвтрэх</button>
           </form>
-          <button onclick="setTab('admin', this); renderAdminUsers();" class="bg-blue-600 text-white px-4 py-2 rounded">Админ хэсэг</button>
-          <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">Гарах</button>
-        </div>`;
-    } else {
-      container.innerHTML = `
-        <form onsubmit="
+          <div id="login-error" class="hidden mt-4 text-center text-red-600 font-semibold"></div>`;
+      }
+    }
+
+    function renderAdminUsers() {
+      const list = document.getElementById('user-list');
+      if (!list) return;
+      const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
+      list.innerHTML = users.map(u => `<li>- ${u.email}, ${u.phone}, ${new Date(u.loginTime).toLocaleString()}</li>`).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProfile();
+      if (isAdmin) renderAdminUsers();
+    });
+  </script></body>
+</html>
