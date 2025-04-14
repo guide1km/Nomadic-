@@ -182,13 +182,13 @@
     e.preventDefault();
     const newPhone = document.getElementById('update-phone').value.trim();
     const user = JSON.parse(localStorage.getItem("userInfo"));
-    if (!/^[0-9]{8}$/.test(newPhone)) {
+   if (!/^[0-9]{8}$/.test(newPhone)) {
       alert("Утасны дугаар 8 оронтой байх ёстой!");
       return;
     }
     user.phone = newPhone;
     localStorage.setItem("userInfo", JSON.stringify(user));
-    renderProfile();
+    localStorage.setItem("userInfo", JSON.stringify(user));
   }
 
   function renderProfile() {
@@ -231,7 +231,8 @@
   function renderAdminUsers() {
     const list = document.getElementById('user-list');
     const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
-    if (!list) return;
+    const list = document.getElementById('user-list');
+if (!list) return;
     list.innerHTML = users.map(u => `<li>- ${u.email}, ${u.phone}, ${new Date(u.loginTime).toLocaleString()}</li>`).join('');
   }
 
