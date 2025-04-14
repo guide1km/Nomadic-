@@ -158,6 +158,37 @@
         loginTime: new Date().toISOString()
       };
 
+        <script>
+  function login(event) {
+    event.preventDefault();
+    const email = document.getElementById("login-email").value.trim();
+    const phone = document.getElementById("login-phone").value.trim();
+    const password = document.getElementById("login-password").value;
+    const errorDiv = document.getElementById("login-error");
+
+    if (!email.includes("@")) {
+      errorDiv.textContent = "Имэйл буруу байна!";
+      errorDiv.classList.remove("hidden");
+      return;
+    }
+    if (!/^[0-9]{8}$/.test(phone)) {
+      errorDiv.textContent = "Утасны дугаар 8 оронтой байх ёстой!";
+      errorDiv.classList.remove("hidden");
+      return;
+    }
+    if (password.length < 6) {
+      errorDiv.textContent = "Нууц үг дор хаяж 6 тэмдэгт байх ёстой!";
+      errorDiv.classList.remove("hidden");
+      return;
+    }
+
+    if (email === "admin@nomadic.mn" && password === "admin123" && phone === "88112233") {
+      const userInfo = {
+        email,
+        phone,
+        loginTime: new Date().toISOString()
+      };
+
       let users = JSON.parse(localStorage.getItem("allUsers") || "[]");
       users.push(userInfo);
       localStorage.setItem("allUsers", JSON.stringify(users));
@@ -169,7 +200,7 @@
       setTab('profile', document.querySelectorAll('.tab-button')[4]);
     } else {
       errorDiv.textContent = "Имэйл, утас эсвэл нууц үг буруу байна!";
-      errorDiv.classList.remove('hidden');
+      errorDiv.classList.remove("hidden");
     }
   }
 
@@ -184,12 +215,11 @@
     e.preventDefault();
     const newPhone = document.getElementById('update-phone').value.trim();
     const user = JSON.parse(localStorage.getItem("userInfo"));
-   if (!/^[0-9]{8}$/.test(newPhone)) {
+    if (!/^[0-9]{8}$/.test(newPhone)) {
       alert("Утасны дугаар 8 оронтой байх ёстой!");
       return;
     }
     user.phone = newPhone;
-    localStorage.setItem("userInfo", JSON.stringify(user));
     localStorage.setItem("userInfo", JSON.stringify(user));
   }
 
@@ -220,26 +250,4 @@
         </div>`;
     } else {
       container.innerHTML = `
-        <form onsubmit="login(event)" class="space-y-4 max-w-md mx-auto mt-4">
-          <input id="login-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
-          <input id="login-phone" type="tel" placeholder="Утас (8 оронтой)" class="w-full p-2 border rounded text-black" pattern="\\d{8}" required>
-          <input id="login-password" type="password" placeholder="Нууц үг (6+ тэмдэгт)" class="w-full p-2 border rounded text-black" required>
-          <button type="submit" class="bg-gray-700 text-white px-4 py-2 rounded">Нэвтрэх</button>
-        </form>
-        <div id="login-error" class="hidden mt-4 text-center text-red-600 font-semibold"></div>`;
-    }
-  }
-
-  function renderAdminUsers() {
-    const list = document.getElementById('user-list');
-    const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
-    const list = document.getElementById('user-list');
-if (!list) return;
-    list.innerHTML = users.map(u => `<li>- ${u.email}, ${u.phone}, ${new Date(u.loginTime).toLocaleString()}</li>`).join('');
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    renderProfile();
-    if (isAdmin) renderAdminUsers();
-  });
-      </script>
+        <form onsubmit="
