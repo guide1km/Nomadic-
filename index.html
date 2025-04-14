@@ -14,180 +14,159 @@
     <section id="home" class="tab-section active">
       <h1 class="text-3xl font-bold text-center text-purple-700">Нүүр</h1>
       <div class="h-96 bg-purple-100 rounded-lg p-4 mt-4">Нүүр хэсэг .</div>
-    </section><section id="categories" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-green-700">Аяллын төрлүүд</h1>
-  <div class="grid md:grid-cols-2 gap-4 mt-4">
-    <!-- Cards here -->
-  </div>
-</section>
+    </section>
+    <section id="categories" class="tab-section">
+      <h1 class="text-3xl font-bold text-center text-green-700">Аяллын төрлүүд</h1>
+      <div class="grid md:grid-cols-2 gap-4 mt-4"></div>
+    </section>
+    <section id="featured" class="tab-section">
+      <h1 class="text-3xl font-bold text-center text-yellow-600">Захиалга өгөх</h1>
+      <form onsubmit="submitFeaturedOrder(event)" class="space-y-4 max-w-md mx-auto mt-6">
+        <input id="f-name" type="text" placeholder="Нэр" class="w-full p-2 border rounded text-black" required>
+        <input id="f-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
+        <input id="f-phone" type="tel" placeholder="Утас" class="w-full p-2 border rounded text-black" required>
+        <select id="f-tour" class="w-full p-2 border rounded text-black" required>
+          <option disabled selected value="">-- Аялал сонгох --</option>
+          <option>Говь аялал</option>
+          <option>Мөсөн агуй</option>
+          <option>Морин аялал</option>
+        </select>
+        <input id="f-date" type="date" class="w-full p-2 border rounded text-black" required>
+        <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Захиалга илгээх</button>
+      </form>
+      <div id="f-success" class="hidden mt-4 text-center text-green-600 font-semibold">Захиалга амжилттай илгээгдлээ!</div>
+    </section>
+    <section id="saved" class="tab-section">
+      <h1 class="text-3xl font-bold text-center text-blue-700">Хадгалсан</h1>
+      <div class="h-96 bg-blue-100 rounded-lg p-4 mt-4">Хадгалсан зүйлс энд байна.</div>
+    </section>
+    <section id="profile" class="tab-section">
+      <h1 class="text-3xl font-bold text-center text-gray-700">Профайл</h1>
+      <div id="profile-content" class="h-96 bg-gray-100 rounded-lg p-4 mt-4"></div>
+    </section>
+    <section id="admin" class="tab-section">
+      <h1 class="text-3xl font-bold text-center text-black">Админ хэсэг</h1>
+      <div class="h-96 overflow-y-auto bg-gray-200 rounded-lg p-4 mt-4">
+        <h2 class="text-xl font-semibold mb-2">Бүртгэгдсэн хэрэглэгчид</h2>
+        <ul id="user-list" class="space-y-2 text-sm text-gray-800"></ul>
+      </div>
+    </section>
+  </main>
+  <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-50">
+    <nav class="flex justify-around text-center text-xs text-gray-600">
+      <button onclick="setTab('home', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <span class="text-2xl mb-1">🏡</span><span>Нүүр</span>
+      </button>
+      <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <span class="text-2xl mb-1">🧳</span><span>Ангилал</span>
+      </button>
+      <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <span class="text-2xl mb-1">🛒</span><span>Захиалга</span>
+      </button>
+      <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <span class="text-2xl mb-1">❤️</span><span>Хадгалсан</span>
+      </button>
+      <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">
+        <span class="text-2xl mb-1">👤</span><span>Профайл</span>
+      </button>
+    </nav>
+  </footer>
+  <script>
+    let isAdmin = false;function setTab(id, btn) {
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('text-purple-600'));
+  btn.classList.add('text-purple-600');
+}
 
-<section id="featured" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-yellow-600">Захиалга өгөх</h1>
-  <form onsubmit="submitFeaturedOrder(event)" class="space-y-4 max-w-md mx-auto mt-6">
-    <input id="f-name" type="text" placeholder="Нэр" class="w-full p-2 border rounded text-black" required>
-    <input id="f-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
-    <input id="f-phone" type="tel" placeholder="Утас" class="w-full p-2 border rounded text-black" required>
-    <select id="f-tour" class="w-full p-2 border rounded text-black" required>
-      <option disabled selected value="">-- Аялал сонгох --</option>
-      <option>Говь аялал</option>
-      <option>Мөсөн агуй</option>
-      <option>Морин аялал</option>
-    </select>
-    <input id="f-date" type="date" class="w-full p-2 border rounded text-black" required>
-    <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Захиалга илгээх</button>
-  </form>
-  <div id="f-success" class="hidden mt-4 text-center text-green-600 font-semibold">Захиалга амжилттай илгээгдлээ!</div>
-</section>
+function login(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value.trim();
+  const phone = document.getElementById('login-phone').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errorDiv = document.getElementById('login-error');
 
-<section id="saved" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-blue-700">Хадгалсан</h1>
-  <div class="h-96 bg-blue-100 rounded-lg p-4 mt-4">Хадгалсан зүйлс энд байна.</div>
-</section>
+  if (!email.includes('@')) {
+    errorDiv.textContent = "Имэйл буруу байна!";
+    errorDiv.classList.remove('hidden'); return;
+  }
+  if (!/^[0-9]{8}$/.test(phone)) {
+    errorDiv.textContent = "Утасны дугаар 8 оронтой байх ёстой!";
+    errorDiv.classList.remove('hidden'); return;
+  }
+  if (password.length < 6) {
+    errorDiv.textContent = "Нууц үг дор хаяж 6 тэмдэгт байх ёстой!";
+    errorDiv.classList.remove('hidden'); return;
+  }
 
-<section id="profile" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-gray-700">Профайл</h1>
-  <div id="profile-content" class="h-96 bg-gray-100 rounded-lg p-4 mt-4">
-    <!-- renderProfile() content will be injected here -->
-  </div>
-</section>
+  if (email === "admin@nomadic.mn" && password === "admin123" && phone === "88112233") {
+    isAdmin = true;
+    const userInfo = { email, phone, loginTime: new Date().toISOString() };
+    const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
+    users.push(userInfo);
+    localStorage.setItem("allUsers", JSON.stringify(users));
+    localStorage.setItem("isAdmin", "true");
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    renderProfile();
+    renderAdminUsers();
+    setTab('profile', document.querySelectorAll('.tab-button')[4]);
+  } else {
+    errorDiv.textContent = "Имэйл, утас эсвэл нууц үг буруу байна!";
+    errorDiv.classList.remove('hidden');
+  }
+}
 
-<section id="admin" class="tab-section">
-  <h1 class="text-3xl font-bold text-center text-black">Админ хэсэг</h1>
-  <div class="h-96 overflow-y-auto bg-gray-200 rounded-lg p-4 mt-4">
-    <h2 class="text-xl font-semibold mb-2">Бүртгэлтэй хэрэглэгчид</h2>
-    <ul id="user-list" class="space-y-2 text-sm text-gray-800"></ul>
-  </div>
-</section>
+function logout() {
+  isAdmin = false;
+  localStorage.removeItem("isAdmin");
+  localStorage.removeItem("userInfo");
+  renderProfile();
+}
 
-    <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-50">
-  <nav class="flex justify-around text-center text-xs text-gray-600">
-    <button onclick="setTab('home', this)" class="tab-button flex flex-col items-center justify-center py-2 text-purple-600">
-      <span class="text-2xl mb-1">🏡</span>
-      <span>Нүүр</span>
-    </button>
-    <button onclick="setTab('categories', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <span class="text-2xl mb-1">🧳</span>
-      <span>Ангилал</span>
-    </button>
-    <button onclick="setTab('featured', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <span class="text-2xl mb-1">🛒</span>
-      <span>Захиалга</span>
-    </button>
-    <button onclick="setTab('saved', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <span class="text-2xl mb-1">❤️</span>
-      <span>Хадгалсан</span>
-    </button>
-    <button onclick="setTab('profile', this)" class="tab-button flex flex-col items-center justify-center py-2">
-      <span class="text-2xl mb-1">👤</span>
-      <span>Профайл</span>
-    </button>
-  </nav>
-    </footer>
-    let isAdmin = false;
+function renderProfile() {
+  const container = document.getElementById('profile-content');
+  const user = JSON.parse(localStorage.getItem("userInfo") || "null");
 
-    function setTab(id, btn) {
-      document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('text-purple-600'));
-      btn.classList.add('text-purple-600');
-    }
+  if (user && user.email === "admin@nomadic.mn") {
+    isAdmin = true;
+    localStorage.setItem("isAdmin", "true");
+  } else {
+    isAdmin = false;
+    localStorage.removeItem("isAdmin");
+  }
 
-    function login(e) {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value.trim();
-      const phone = document.getElementById('login-phone').value.trim();
-      const password = document.getElementById('login-password').value;
-      const errorDiv = document.getElementById('login-error');
+  if (isAdmin && user) {
+    container.innerHTML = `
+      <div class="text-center space-y-4">
+        <p class="text-lg text-green-700 font-semibold">Сайн байна уу, ${user.email}!</p>
+        <p class="text-sm text-gray-600">Утас: ${user.phone}</p>
+        <p class="text-sm text-gray-600">Нэвтэрсэн: ${new Date(user.loginTime).toLocaleString()}</p>
+        <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">Гарах</button>
+      </div>`;
+  } else {
+    container.innerHTML = `
+      <form onsubmit="login(event)" class="space-y-4 max-w-md mx-auto mt-4">
+        <input id="login-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
+        <input id="login-phone" type="tel" placeholder="Утас (8 оронтой)" class="w-full p-2 border rounded text-black" required>
+        <input id="login-password" type="password" placeholder="Нууц үг (6+ тэмдэгт)" class="w-full p-2 border rounded text-black" required>
+        <button type="submit" class="bg-gray-700 text-white px-4 py-2 rounded">Нэвтрэх</button>
+      </form>
+      <div id="login-error" class="hidden mt-4 text-center text-red-600 font-semibold"></div>`;
+  }
+}
 
-      if (!email.includes('@')) {
-        errorDiv.textContent = "Имэйл буруу байна!";
-        errorDiv.classList.remove('hidden'); return;
-      }
-      if (!/^[0-9]{8}$/.test(phone)) {
-        errorDiv.textContent = "Утасны дугаар 8 оронтой байх ёстой!";
-        errorDiv.classList.remove('hidden'); return;
-      }
-      if (password.length < 6) {
-        errorDiv.textContent = "Нууц үг дор хаяж 6 тэмдэгт байх ёстой!";
-        errorDiv.classList.remove('hidden'); return;
-      }
-      if (email === "admin@nomadic.mn" && password === "admin123" && phone === "88112233") {
-        isAdmin = true;
-        const userInfo = { email, phone, loginTime: new Date().toISOString() };
-        const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
-        users.push(userInfo);
-        localStorage.setItem("allUsers", JSON.stringify(users));
-        localStorage.setItem("isAdmin", "true");
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        renderProfile();
-        renderAdminUsers();
-        setTab('profile', document.querySelectorAll('.tab-button')[4]);
-      } else {
-        errorDiv.textContent = "Имэйл, утас эсвэл нууц үг буруу байна!";
-        errorDiv.classList.remove('hidden');
-      }
-    }
+function renderAdminUsers() {
+  const list = document.getElementById('user-list');
+  if (!list) return;
+  const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
+  list.innerHTML = users.map(u => `<li>- ${u.email}, ${u.phone}, ${new Date(u.loginTime).toLocaleString()}</li>`).join('');
+}
 
-    function logout() {
-      isAdmin = false;
-      localStorage.removeItem("isAdmin");
-      localStorage.removeItem("userInfo");
-      renderProfile();
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  renderProfile();
+  if (isAdmin) renderAdminUsers();
+});
 
-    function updateUser(e) {
-      e.preventDefault();
-      const newPhone = document.getElementById('update-phone').value.trim();
-      const user = JSON.parse(localStorage.getItem("userInfo"));
-      if (!/^[0-9]{8}$/.test(newPhone)) {
-        alert("Утасны дугаар 8 оронтой байх ёстой!"); return;
-      }
-      user.phone = newPhone;
-      localStorage.setItem("userInfo", JSON.stringify(user));
-      renderProfile();
-    }
-
-    function renderProfile() {
-      const container = document.getElementById('profile-content');
-      const user = JSON.parse(localStorage.getItem("userInfo") || "null");
-      isAdmin = user && user.email === "admin@nomadic.mn";
-      localStorage.setItem("isAdmin", isAdmin ? "true" : "false");
-
-      if (isAdmin && user) {
-        container.innerHTML = `
-          <div class="text-center space-y-4">
-            <p class="text-lg text-green-700 font-semibold">Сайн байна уу, ${user.email}!</p>
-            <p class="text-sm text-gray-600">Утас: ${user.phone}</p>
-            <p class="text-sm text-gray-600">Нэвтэрсэн: ${new Date(user.loginTime).toLocaleString()}</p>
-            <form onsubmit="updateUser(event)" class="mt-4">
-              <input id="update-phone" type="tel" value="${user.phone}" class="p-2 border rounded text-black" required>
-              <button type="submit" class="ml-2 bg-blue-600 text-white px-4 py-2 rounded">Шинэчлэх</button>
-            </form>
-            <button onclick="setTab('admin', this); renderAdminUsers();" class="bg-blue-600 text-white px-4 py-2 rounded">Админ хэсэг</button>
-            <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">Гарах</button>
-          </div>`;
-      } else {
-        container.innerHTML = `
-          <form onsubmit="login(event)" class="space-y-4 max-w-md mx-auto mt-4">
-            <input id="login-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
-            <input id="login-phone" type="tel" placeholder="Утас (8 оронтой)" class="w-full p-2 border rounded text-black" pattern="\\d{8}" required>
-            <input id="login-password" type="password" placeholder="Нууц үг (6+ тэмдэгт)" class="w-full p-2 border rounded text-black" required>
-            <button type="submit" class="bg-gray-700 text-white px-4 py-2 rounded">Нэвтрэх</button>
-          </form>
-          <div id="login-error" class="hidden mt-4 text-center text-red-600 font-semibold"></div>`;
-      }
-    }
-
-    function renderAdminUsers() {
-      const list = document.getElementById('user-list');
-      if (!list) return;
-      const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
-      list.innerHTML = users.map(u => `<li>- ${u.email}, ${u.phone}, ${new Date(u.loginTime).toLocaleString()}</li>`).join('');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      renderProfile();
-      if (isAdmin) renderAdminUsers();
-    });
-  </script></body>
+  </script>
+</body>
 </html>
