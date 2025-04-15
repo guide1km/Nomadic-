@@ -85,7 +85,55 @@
 </section>
 
   </main>
+  <!-- Chatbot UI эхлэл -->
+<button onclick="document.getElementById('chatbot-box').classList.remove('hidden')"
+  class="fixed bottom-24 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 z-50">💬</button>
+
+<div id="chatbot-box" class="hidden fixed bottom-28 right-4 bg-white w-80 h-96 shadow-lg border rounded-lg flex flex-col z-50">
+  <div class="bg-blue-600 text-white p-2 flex justify-between items-center rounded-t-lg">
+    <span>Chatbot</span>
+    <button onclick="document.getElementById('chatbot-box').classList.add('hidden')">❌</button>
+  </div>
+  <div id="chat-content" class="flex-1 overflow-y-auto p-2 text-sm space-y-2"></div>
+  <form id="chat-form" class="p-2 flex border-t">
+    <input id="chat-input" type="text" placeholder="Текст бич..." class="flex-1 p-1 border rounded" required>
+    <button class="ml-2 bg-blue-600 text-white px-3 py-1 rounded">Илгээх</button>
+  </form>
+</div>
+<!-- Chatbot UI төгсгөл -->
   <script>
+    // CHATBOT
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
+const chatContent = document.getElementById('chat-content');
+
+const OPENAI_API_KEY = "YOUR_API_KEY_HERE"; // <-- энд өөрийн OpenAI API key тавина
+
+chatForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const userText = chatInput.value.trim();
+  if (!userText) return;
+
+  chatInput.value = '';
+  chatContent.innerHTML += `<div><strong>Та:</strong> ${userText}</div>`;
+
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${OPENAI_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: userText }]
+    })
+  });
+
+  const data = await res.json();
+  const botText = data.choices?.[0]?.message?.content || "Алдаа гарлаа...";
+  chatContent.innerHTML += `<div><strong>Bot:</strong> ${botText}</div>`;
+  chatContent.scrollTop = chatContent.scrollHeight;
+});
     const stars = document.querySelectorAll('#rating-stars span');
     const ratingValue = document.getElementById('rating-value');
     const resetBtn = document.getElementById('admin-reset');// Simulate Admin Login (e.g., localStorage flag)
