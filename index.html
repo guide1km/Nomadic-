@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="mn">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nomadic App</title>
+  <title>Nomadic All-in-One</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .tab-section { display: none; }
@@ -13,7 +12,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-  <!-- Tabs Navigation -->
+  <!-- Navigation Tabs -->
   <nav class="fixed bottom-0 inset-x-0 bg-white border-t shadow-lg flex justify-around text-xs py-2 z-50">
     <button onclick="showTab('home')" class="flex flex-col items-center text-blue-700">
       <span class="text-xl">🏠</span><span>Нүүр</span>
@@ -32,29 +31,15 @@
     </button>
   </nav>
 
-  <!-- Sections -->
+  <!-- Main Sections -->
   <main class="max-w-2xl mx-auto px-4 py-6 space-y-6 pb-24">
 
     <!-- Home -->
     <section id="home" class="tab-section tab-active text-center">
-<!-- Chatbot floating icon -->
-<button onclick="document.getElementById('chatbot-box').classList.remove('hidden')"
-  class="fixed bottom-36 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 z-50">💬</button>
-
-<!-- Chatbot box -->
-<div id="chatbot-box" class="hidden fixed bottom-44 right-4 w-80 h-96 bg-white border rounded-lg shadow-lg flex flex-col z-50">
-  <div class="bg-blue-600 text-white p-2 flex justify-between items-center rounded-t-lg">
-    <span>ChatBot</span>
-    <button onclick="document.getElementById('chatbot-box').classList.add('hidden')">❌</button>
-  </div>
-  <div id="chat-content" class="flex-1 overflow-y-auto p-2 text-sm space-y-2"></div>
-  <form id="chat-form" class="p-2 flex border-t">
-    <input id="chat-input" type="text" placeholder="Текст бич..." class="flex-1 p-1 border rounded" required>
-    <button class="ml-2 bg-blue-600 text-white px-3 py-1 rounded">Илгээх</button>
-  </form>
-</div>
-
       <img src="logo.jpg" alt="Лого" class="h-20 mx-auto mb-4">
+      <!-- Chatbot UI -->
+      <button onclick="document.getElementById('chatbot-box').classList.remove('hidden')"
+        class="bg-blue-600 text-white px-4 py-2 rounded-full shadow">💬 CattBot</button>
     </section>
 
     <!-- Category -->
@@ -89,7 +74,7 @@
         <input type="text" id="order-name" placeholder="Нэр" class="w-full p-2 border rounded" required>
         <input type="email" id="order-email" placeholder="Имэйл" class="w-full p-2 border rounded" required>
         <input type="tel" id="order-phone" placeholder="Утас" class="w-full p-2 border rounded" required>
-        <textarea id="order-message" placeholder="Хүссэн маршрут" rows="4" class="w-full p-2 border rounded" required></textarea>
+        <textarea id="order-message" placeholder="Маршрут" rows="4" class="w-full p-2 border rounded" required></textarea>
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Захиалах</button>
       </form>
     </section>
@@ -102,7 +87,7 @@
 
     <!-- Profile -->
     <section id="profile" class="tab-section space-y-4">
-      <h2 class="text-xl font-semibold">Нэвтрэх</h2>
+      <h2 class="text-xl font-semibold">Нэвтрэх (Зөвхөн админ)</h2>
       <form onsubmit="login(event)" class="space-y-2">
         <input type="text" id="login-user" placeholder="Нэвтрэх нэр" class="w-full p-2 border rounded" required>
         <input type="password" id="login-pass" placeholder="Нууц үг" class="w-full p-2 border rounded" required>
@@ -111,7 +96,7 @@
 
       <h2 class="text-xl font-semibold mt-6">Бүртгүүлэх</h2>
       <form onsubmit="register(event)" class="space-y-2">
-        <input type="text" id="reg-user" placeholder="Нэр" class="w-full p-2 border rounded" required>
+        <input type="text" id="reg-user" placeholder="Нэвтрэх нэр" class="w-full p-2 border rounded" required>
         <input type="email" id="reg-email" placeholder="Имэйл" class="w-full p-2 border rounded" required>
         <input type="password" id="reg-pass" placeholder="Нууц үг" class="w-full p-2 border rounded" required>
         <button class="bg-green-600 text-white px-4 py-2 rounded">Бүртгүүлэх</button>
@@ -120,10 +105,24 @@
 
   </main>
 
+  <!-- Chatbot HTML -->
+  <div id="chatbot-box" class="hidden fixed bottom-32 right-4 w-80 h-96 bg-white border rounded-lg shadow-lg flex flex-col z-50">
+    <div class="bg-blue-600 text-white p-2 flex justify-between items-center rounded-t-lg">
+      <span>ChatBot</span>
+      <button onclick="document.getElementById('chatbot-box').classList.add('hidden')">❌</button>
+    </div>
+    <div id="chat-content" class="flex-1 overflow-y-auto p-2 text-sm space-y-2"></div>
+    <form id="chat-form" class="p-2 flex border-t">
+      <input id="chat-input" type="text" placeholder="Текст бич..." class="flex-1 p-1 border rounded" required>
+      <button class="ml-2 bg-blue-600 text-white px-3 py-1 rounded">Илгээх</button>
+    </form>
+  </div>
+
   <script>
     function showTab(id) {
       document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('tab-active'));
       document.getElementById(id).classList.add('tab-active');
+      if (id === 'favorites') renderFavorites();
     }
 
     function addToFavorites(item) {
@@ -187,44 +186,36 @@
       e.target.reset();
     }
 
-    // auto load favorites
-    showTab('home');
-    renderFavorites();
+    // Chatbot
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatContent = document.getElementById('chat-content');
+    const OPENAI_API_KEY = "YOUR_API_KEY_HERE"; // Replace here with your own key safely (not public)
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+      chatInput.value = '';
+      chatContent.innerHTML += `<div><strong>Та:</strong> ${userText}</div>`;
+
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${OPENAI_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: userText }]
+        })
+      });
+
+      const data = await res.json();
+      const botText = data.choices?.[0]?.message?.content || "Алдаа гарлаа...";
+      chatContent.innerHTML += `<div><strong>Bot:</strong> ${botText}</div>`;
+      chatContent.scrollTop = chatContent.scrollHeight;
+    });
   </script>
-
-
-<script>
-const chatForm = document.getElementById('chat-form');
-const chatInput = document.getElementById('chat-input');
-const chatContent = document.getElementById('chat-content');
-const OPENAI_API_KEY = "YOUR_API_KEY_HERE";
-
-chatForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const userText = chatInput.value.trim();
-  if (!userText) return;
-
-  chatInput.value = '';
-  chatContent.innerHTML += `<div><strong>Та:</strong> ${userText}</div>`;
-
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${OPENAI_API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: userText }]
-    })
-  });
-
-  const data = await res.json();
-  const botText = data.choices?.[0]?.message?.content || "Алдаа гарлаа...";
-  chatContent.innerHTML += `<div><strong>Bot:</strong> ${botText}</div>`;
-  chatContent.scrollTop = chatContent.scrollHeight;
-});
-</script>
-
 </body>
 </html>
