@@ -3,273 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Үнэлгээ ба Сэтгэгдэл</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f8fafc;
-      padding: 20px;
-    }
-
-    #rating-stars span {
-      font-size: 2rem;
-      cursor: pointer;
-      color: gray;
-      transition: color 0.2s;
-    }
-
-    #rating-stars .active {
-      color: gold;
-    }
-
-    .bar-container {
-      max-width: 300px;
-      margin: 1rem auto;
-      font-size: 0.875rem;
-      color: #374151;
-    }
-
-    .bar {
-      background-color: #e5e7eb;
-      height: 8px;
-      border-radius: 9999px;
-      overflow: hidden;
-      margin: 0 0.5rem;
-      flex-grow: 1;
-    }
-
-    .bar-fill {
-      background-color: #facc15;
-      height: 100%;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Үнэлгээ өгөх -->
-  <div class="text-center">
-    <h2 class="text-xl font-semibold mb-2">Үнэлгээ өгөх</h2>
-    <div id="rating-stars" class="flex justify-center space-x-2">
-      <span data-star="1">☆</span>
-      <span data-star="2">☆</span>
-      <span data-star="3">☆</span>
-      <span data-star="4">☆</span>
-      <span data-star="5">☆</span>
-    </div>
-    <div class="mt-2">Үнэлгээ: <span id="rating-value">0.0</span>/5</div>
-  </div>
-
-  <!-- Үнэлгээний шугам -->
-  <div class="bar-container">
-    <div class="flex items-center">
-      <span class="w-5">5★</span>
-      <div class="bar"><div id="bar-5" class="bar-fill"></div></div>
-      <span id="count-5">0</span>
-    </div>
-    <div class="flex items-center">
-      <span class="w-5">4★</span>
-      <div class="bar"><div id="bar-4" class="bar-fill"></div></div>
-      <span id="count-4">0</span>
-    </div>
-    <div class="flex items-center">
-      <span class="w-5">3★</span>
-      <div class="bar"><div id="bar-3" class="bar-fill"></div></div>
-      <span id="count-3">0</span>
-    </div>
-    <div class="flex items-center">
-      <span class="w-5">2★</span>
-      <div class="bar"><div id="bar-2" class="bar-fill"></div></div>
-      <span id="count-2">0</span>
-    </div>
-    <div class="flex items-center">
-      <span class="w-5">1★</span>
-      <div class="bar"><div id="bar-1" class="bar-fill"></div></div>
-      <span id="count-1">0</span>
-    </div>
-  </div>
-
-  <!-- Сэтгэгдэл үлдээх -->
-  <div class="mt-6">
-    <h2 class="text-xl font-semibold mb-2 text-center">Сэтгэгдэл үлдээх</h2>
-    <form id="comment-form" class="space-y-2">
-      <input id="comment-name" type="text" placeholder="Нэр..." class="w-full p-2 border rounded" required>
-      <textarea id="comment-text" rows="3" placeholder="Сэтгэгдэл бичнэ үү..." class="w-full p-2 border rounded" required></textarea>
-      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Илгээх</button>
-    </form>
-
-    <div id="comment-list" class="mt-4 space-y-2"></div>
-  </div>
-
-  <script>
-    const storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");
-    const stars = document.querySelectorAll('#rating-stars span');
-    const ratingValue = document.getElementById('rating-value');
-
-    stars.forEach(star => {
-      star.addEventListener('click', () => {
-        const rating = parseInt(star.getAttribute('data-star'));
-        storedRatings.push(rating);
-        localStorage.setItem('ratings', JSON.stringify(storedRatings));
-        updateRatingBars(storedRatings);
-        stars.forEach((s, i) => {
-          s.classList.toggle('active', i < rating);
-        });
-      });
-    });
-
-    function updateRatingBars(ratings) {
-      const counts = [0, 0, 0, 0, 0];
-      ratings.forEach(r => {
-        const n = parseInt(r);
-        if (n >= 1 && n <= 5) counts[n - 1]++;
-      });
-
-      const total = ratings.length;
-      const sum = ratings.reduce((a, b) => a + parseInt(b), 0);
-      const avg = total ? (sum / total).toFixed(1) : "0.0";
-      ratingValue.textContent = avg;
-
-      counts.forEach((count, i) => {
-        const level = 5 - i;
-        const percent = total ? (count / total) * 100 : 0;
-        document.getElementById(`count-${level}`).textContent = count;
-        document.getElementById(`bar-${level}`).style.width = `${percent}%`;
-      });
-    }
-
-    updateRatingBars(storedRatings);
-
-    // Comments
-    const commentForm = document.getElementById('comment-form');
-    const nameInput = document.getElementById('comment-name');
-    const textInput = document.getElementById('comment-text');
-    const commentList = document.getElementById('comment-list');
-    const comments = JSON.parse(localStorage.getItem('comments') || "[]");
-
-    function renderComments() {
-      commentList.innerHTML = '';
-      comments.forEach(c => {
-        const div = document.createElement('div');
-        div.className = 'p-2 border rounded';
-        div.innerHTML = `<strong>${c.name}</strong><p>${c.text}</p>`;
-        commentList.appendChild(div);
-      });
-    }
-
-    commentForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const name = nameInput.value.trim();
-      const text = textInput.value.trim();
-      if (!name || !text) return;
-
-      const comment = { name, text };
-      comments.push(comment);
-      localStorage.setItem('comments', JSON.stringify(comments));
-      renderComments();
-
-      commentForm.reset();
-    });
-
-    renderComments();
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html><html lang="mn">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nomadic Tours App</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     .tab-section { display: none; }
     .tab-section.active { display: block; }
+    #rating-stars span { transition: color 0.2s; color: gray; cursor: pointer; font-size: 2rem; }
+    #rating-stars .active { color: gold; }
+    .bar-fill { transition: width 0.3s ease; }
   </style>
 </head>
 <body class="bg-gray-100 text-black font-sans pb-24">
-  <main class="px-4 pt-6">
-    <section id="home" class="tab-section active">
-      <h1 class="text-3xl font-bold text-center text-purple-700">Нүүр</h1>
-      <div class="h-96 bg-purple-100 rounded-lg p-4 mt-4">Нүүр хэсэг .</div>
-      <!-- Rating Component --><div class="mt-6 text-center">
-  <h2 class="text-xl font-semibold mb-2">Үнэлгээ өгөх</h2>
-  <div id="rating-stars" class="flex justify-center gap-2 text-3xl cursor-pointer">
-    <span data-star="1">&#9734;</span>
-    <span data-star="2">&#9734;</span>
-    <span data-star="3">&#9734;</span>
-    <span data-star="4">&#9734;</span>
-    <span data-star="5">&#9734;</span>
-  </div>
-  <div class="mt-2 text-gray-600">Үнэлгээ: <span id="rating-value">0</span>/5</div>
-  <!-- Үнэлгээний хуваарилалт -->
-<div class="space-y-1 max-w-xs mx-auto mt-4 text-sm text-gray-700">
-  <div class="flex items-center">
-    <span class="w-5">5★</span>
-    <div class="bg-gray-200 w-full h-2 mx-2 rounded">
-      <div id="bar-5" class="bg-yellow-400 h-2 w-0"></div>
+<main class="px-4 pt-6">
+  <section id="home" class="tab-section active">
+    <h1 class="text-3xl font-bold text-center text-purple-700">Нүүр</h1>
+    <div class="h-96 bg-purple-100 rounded-lg p-4 mt-4">Нүүр хэсэг</div>
+
+    <!-- Rating Section -->
+    <div class="mt-6 text-center">
+      <h2 class="text-xl font-semibold mb-2">Үнэлгээ өгөх</h2>
+      <div id="rating-stars" class="flex justify-center gap-2">
+        <span data-star="1">&#9734;</span>
+        <span data-star="2">&#9734;</span>
+        <span data-star="3">&#9734;</span>
+        <span data-star="4">&#9734;</span>
+        <span data-star="5">&#9734;</span>
+      </div>
+      <div class="mt-2 text-gray-600">Үнэлгээ: <span id="rating-value">0.0</span>/5</div>
+      <div class="space-y-1 max-w-xs mx-auto mt-4 text-sm text-gray-700">
+        <div class="flex items-center"><span class="w-5">5★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-5" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-5">0</span></div>
+        <div class="flex items-center"><span class="w-5">4★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-4" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-4">0</span></div>
+        <div class="flex items-center"><span class="w-5">3★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-3" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-3">0</span></div>
+        <div class="flex items-center"><span class="w-5">2★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-2" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-2">0</span></div>
+        <div class="flex items-center"><span class="w-5">1★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-1" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-1">0</span></div>
+      </div>
     </div>
-    <span id="count-5">0</span>
-  </div>
-  <div class="flex items-center">
-    <span class="w-5">4★</span>
-    <div class="bg-gray-200 w-full h-2 mx-2 rounded">
-      <div id="bar-4" class="bg-yellow-400 h-2 w-0"></div>
+
+    <!-- Comment Section -->
+    <div class="mt-6 max-w-md mx-auto">
+      <h2 class="text-xl font-semibold mb-2 text-center">Сэтгэгдэл үлдээх</h2>
+      <form id="comment-form" class="space-y-2">
+        <input id="comment-name" type="text" placeholder="Нэр..." class="w-full p-2 border rounded" required>
+        <textarea id="comment-text" rows="3" placeholder="Сэтгэгдэл бичнэ үү..." class="w-full p-2 border rounded" required></textarea>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Илгээх</button>
+      </form>
+      <div id="comment-list" class="mt-4 space-y-2"></div>
     </div>
-    <span id="count-4">0</span>
-  </div>
-  <div class="flex items-center">
-    <span class="w-5">3★</span>
-    <div class="bg-gray-200 w-full h-2 mx-2 rounded">
-      <div id="bar-3" class="bg-yellow-400 h-2 w-0"></div>
-    </div>
-    <span id="count-3">0</span>
-  </div>
-  <div class="flex items-center">
-    <span class="w-5">2★</span>
-    <div class="bg-gray-200 w-full h-2 mx-2 rounded">
-      <div id="bar-2" class="bg-yellow-400 h-2 w-0"></div>
-    </div>
-    <span id="count-2">0</span>
-  </div>
-  <div class="flex items-center">
-    <span class="w-5">1★</span>
-    <div class="bg-gray-200 w-full h-2 mx-2 rounded">
-      <div id="bar-1" class="bg-yellow-400 h-2 w-0"></div>
-    </div>
-    <span id="count-1">0</span>
-  </div>
-</div>
-</div><style>
-  #rating-stars span {
-    transition: color 0.2s;
-  }
-  #rating-stars .active {
-    color: gold;
-  }
-</style><script>
+  </section>
+</main>
+
+<script>
   const stars = document.querySelectorAll('#rating-stars span');
   const ratingValue = document.getElementById('rating-value');
+  let storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");
 
   stars.forEach(star => {
     star.addEventListener('click', () => {
+      if (localStorage.getItem('rated')) {
+        alert('Та аль хэдийн үнэлгээ өгсөн байна.');
+        return;
+      }
       const rating = parseInt(star.getAttribute('data-star'));
-      ratingValue.textContent = rating;
-storedRatings.push(rating);
-localStorage.setItem('ratings', JSON.stringify(storedRatings));
-updateRatingBars(storedRatings);
-      stars.forEach((s, i) => {
-        s.classList.toggle('active', i < rating);
-      });
-
-      // localStorage.setItem('userRating', rating); // Хэрэв хадгалах бол
+      storedRatings.push(rating);
+      localStorage.setItem("ratings", JSON.stringify(storedRatings));
+      localStorage.setItem('rated', 'true');
+      updateRatingBars(storedRatings);
+      stars.forEach((s, i) => s.classList.toggle('active', i < rating));
     });
-  });function
-  
+  });
 
-const storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");
-updateRatingBars(storedRatings);
+  function updateRatingBars(ratings) {
+    const counts = [0, 0, 0, 0, 0];
+    ratings.forEach(r => {
+      const n = parseInt(r);
+      if (n >= 1 && n <= 5) counts[n - 1]++;
+    });
+    const total = ratings.length;
+    const sum = ratings.reduce((a, b) => a + parseInt(b), 0);
+    const avg = total ? (sum / total).toFixed(1) : "0.0";
+    ratingValue.textContent = avg;
+    counts.forEach((count, i) => {
+      const level = 5 - i;
+      const percent = total ? (count / total) * 100 : 0;
+      document.getElementById(`count-${level}`).textContent = count;
+      document.getElementById(`bar-${level}`).style.width = `${percent}%`;
+    });
+  }
+
+  updateRatingBars(storedRatings);
+
+  // Comment logic
+  const commentForm = document.getElementById('comment-form');
+  const nameInput = document.getElementById('comment-name');
+  const textInput = document.getElementById('comment-text');
+  const commentList = document.getElementById('comment-list');
+  const comments = JSON.parse(localStorage.getItem('comments') || "[]");
+
+  function renderComments() {
+    commentList.innerHTML = '';
+    comments.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'p-2 border rounded bg-white';
+      div.innerHTML = `<strong>${c.name}</strong><p>${c.text}</p>`;
+      commentList.appendChild(div);
+    });
+  }
+
+  commentForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = nameInput.value.trim();
+    const text = textInput.value.trim();
+    if (!name || !text) return;
+    const comment = { name, text };
+    comments.push(comment);
+    localStorage.setItem('comments', JSON.stringify(comments));
+    renderComments();
+    commentForm.reset();
+  });
+
+  renderComments();
+</script>
+</body>
+</html>
 </script>
       <!-- Сэтгэгдэл үлдээх хэсэг -->
 <div class="mt-6">
