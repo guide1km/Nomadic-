@@ -1,56 +1,129 @@
+<!DOCTYPE html><html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomadic Tours App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .tab-section { display: none; }
+    .tab-section.active { display: block; }
+    #rating-stars span { transition: color 0.2s; color: gray; cursor: pointer; font-size: 2rem; }
+    #rating-stars .active { color: gold; }
+    .bar-fill { transition: width 0.3s ease; }
+  </style>
+</head>
+<body class="bg-gray-100 text-black font-sans pb-24">
+<main class="px-4 pt-6">
+  <section id="home" class="tab-section active">
+    <h1 class="text-3xl font-bold text-center text-purple-700">Нүүр</h1>
+    <div class="h-96 bg-purple-100 rounded-lg p-4 mt-4">Нүүр хэсэг</div><!-- Rating Section -->
+<div class="mt-6 text-center">
+  <h2 class="text-xl font-semibold mb-2">Үнэлгээ өгөх</h2>
+  <div id="rating-stars" class="flex justify-center gap-2">
+    <span data-star="1">&#9734;</span>
+    <span data-star="2">&#9734;</span>
+    <span data-star="3">&#9734;</span>
+    <span data-star="4">&#9734;</span>
+    <span data-star="5">&#9734;</span>
+  </div>
+  <div class="mt-2 text-gray-600">Үнэлгээ: <span id="rating-value">0.0</span>/5</div>
+  <div class="space-y-1 max-w-xs mx-auto mt-4 text-sm text-gray-700">
+    <div class="flex items-center"><span class="w-5">5★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-5" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-5">0</span></div>
+    <div class="flex items-center"><span class="w-5">4★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-4" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-4">0</span></div>
+    <div class="flex items-center"><span class="w-5">3★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-3" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-3">0</span></div>
+    <div class="flex items-center"><span class="w-5">2★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-2" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-2">0</span></div>
+    <div class="flex items-center"><span class="w-5">1★</span><div class="bg-gray-200 w-full h-2 mx-2 rounded"><div id="bar-1" class="bg-yellow-400 h-2 w-0 bar-fill"></div></div><span id="count-1">0</span></div>
+  </div>
+</div>
 
-  <!-- Floating Chatbot Button -->
-<button onclick="document.getElementById('chatbot-box').classList.remove('hidden')"
-  class="fixed bottom-24 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 z-50">
+<!-- Comment Section -->
+<div class="mt-6 max-w-md mx-auto">
+  <h2 class="text-xl font-semibold mb-2 text-center">Сэтгэгдэл үлдээх</h2>
+  <form id="comment-form" class="space-y-2">
+    <input id="comment-name" type="text" placeholder="Нэр..." class="w-full p-2 border rounded" required>
+    <textarea id="comment-text" rows="3" placeholder="Сэтгэгдэл бичнэ үү..." class="w-full p-2 border rounded" required></textarea>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Илгээх</button>
+  </form>
+  <div id="comment-list" class="mt-4 space-y-2"></div>
+</div>
+
+  </section>
+</main><script>
+const stars = document.querySelectorAll('#rating-stars span');
+const ratingValue = document.getElementById('rating-value');
+let storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");
+
+stars.forEach(star => {
+  star.addEventListener('click', () => {
+    if (localStorage.getItem('rated')) {
+      alert('Та аль хэдийн үнэлгээ өгсөн байна.');
+      return;
+    }
+    const rating = parseInt(star.getAttribute('data-star'));
+    storedRatings.push(rating);
+    localStorage.setItem("ratings", JSON.stringify(storedRatings));
+    localStorage.setItem("rated", 'true');
+    updateRatingBars(storedRatings);
+    stars.forEach((s, i) => s.classList.toggle('active', i < rating));
+  });
+});
+
+function updateRatingBars(ratings) {
+  const counts = [0, 0, 0, 0, 0];
+  ratings.forEach(r => {
+    const n = parseInt(r);
+    if (n >= 1 && n <= 5) counts[n - 1]++;
+  });
+  const total = ratings.length;
+  const sum = ratings.reduce((a, b) => a + parseInt(b), 0);
+  const avg = total ? (sum / total).toFixed(1) : "0.0";
+  ratingValue.textContent = avg;
+  counts.forEach((count, i) => {
+    const level = 5 - i;
+    const percent = total ? (count / total) * 100 : 0;
+    document.getElementById(`count-${level}`).textContent = count;
+    document.getElementById(`bar-${level}`).style.width = `${percent}%`;
+  });
+}
+
+updateRatingBars(storedRatings);
+
+const commentForm = document.getElementById('comment-form');
+const nameInput = document.getElementById('comment-name');
+const textInput = document.getElementById('comment-text');
+const commentList = document.getElementById('comment-list');
+const comments = JSON.parse(localStorage.getItem('comments') || "[]");
+
+function renderComments() {
+  commentList.innerHTML = '';
+  comments.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'p-2 border rounded bg-white';
+    div.innerHTML = `<strong>${c.name}</strong><p>${c.text}</p>`;
+    commentList.appendChild(div);
+  });
+}
+
+commentForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = nameInput.value.trim();
+  const text = textInput.value.trim();
+  if (!name || !text) return;
+  const comment = { name, text };
+  comments.push(comment);
+  localStorage.setItem('comments', JSON.stringify(comments));
+  renderComments();
+  commentForm.reset();
+});
+
+renderComments();
+</script></body>
+</html>
+<!-- Floating Chatbot Button -->
+<button onclick="alert('Чатбот нээгдэх болно!')" 
+  class="fixed bottom-24 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700">
   💬
 </button>
-
-<!-- Chatbot UI Box -->
-<div id="chatbot-box" class="hidden fixed bottom-28 right-4 bg-white w-80 h-96 shadow-lg border rounded-lg flex flex-col z-50">
-  <div class="bg-blue-600 text-white p-2 flex justify-between items-center rounded-t-lg">
-    <span>Chatbot</span>
-    <button onclick="document.getElementById('chatbot-box').classList.add('hidden')">❌</button>
-  </div>
-  <div id="chat-content" class="flex-1 overflow-y-auto p-2 text-sm space-y-2"></div>
-  <form id="chat-form" class="p-2 flex border-t">
-    <input id="chat-input" type="text" placeholder="Текст бич..." class="flex-1 p-1 border rounded" required>
-    <button class="ml-2 bg-blue-600 text-white px-3 py-1 rounded">Илгээх</button>
-  </form>
-</div>
-<script>
-const chatForm = document.getElementById('chat-form');
-const chatInput = document.getElementById('chat-input');
-const chatContent = document.getElementById('chat-content');
-
-// GPT API KEY энд солино
-const OPENAI_API_KEY = "YOUR_API_KEY_HERE"; // энд өөрийн API key тавина
-
-chatForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const userText = chatInput.value.trim();
-  if (!userText) return;
-
-  chatInput.value = '';
-  chatContent.innerHTML += `<div><strong>Та:</strong> ${userText}</div>`;
-
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${OPENAI_API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: userText }]
-    })
-  });
-
-  const data = await res.json();
- const botText = data.choices?.[0]?.message?.content || "Алдаа гарлаа...";
-  chatContent.innerHTML += `<div><strong>Bot:</strong> ${botText}</div>`;
-  chatContent.scrollTop = chatContent.scrollHeight;
-});
-</script>
 
 <!-- Navigation Footer -->
 <footer class="fixed bottom-0 w-full bg-white border-t border-gray-200 z-50">
@@ -77,102 +150,3 @@ chatForm.addEventListener('submit', async (e) => {
     </button>
   </nav>
 </footer>
-  <script>
-    let isAdmin = false;function setTab(id, btn) {
-  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('text-purple-600'));
-  btn.classList.add('text-purple-600');
-}
-
-function login(e) {
-  e.preventDefault();
-  const email = document.getElementById('login-email').value.trim();
-  const phone = document.getElementById('login-phone').value.trim();
-  const password = document.getElementById('login-password').value;
-  const errorDiv = document.getElementById('login-error');
-
-  if (!email.includes('@')) {
-    errorDiv.textContent = "Имэйл буруу байна!";
-    errorDiv.classList.remove('hidden'); return;
-  }
-  if (!/^[0-9]{8}$/.test(phone)) {
-    errorDiv.textContent = "Утасны дугаар 8 оронтой байх ёстой!";
-    errorDiv.classList.remove('hidden'); return;
-  }
-  if (password.length < 6) {
-    errorDiv.textContent = "Нууц үг дор хаяж 6 тэмдэгт байх ёстой!";
-    errorDiv.classList.remove('hidden'); return;
-  }
-
-  if (email === "admin@nomadic.mn" && password === "admin123" && phone === "88112233") {
-    isAdmin = true;
-    const userInfo = { email, phone, loginTime: new Date().toISOString() };
-    const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
-    users.push(userInfo);
-    localStorage.setItem("allUsers", JSON.stringify(users));
-    localStorage.setItem("isAdmin", "true");
-    localStorage.setItem("userInfo", JSON.stringify(userInfo));
-    renderProfile();
-    renderAdminUsers();
-    setTab('profile', document.querySelectorAll('.tab-button')[4]);
-  } else {
-    errorDiv.textContent = "Имэйл, утас эсвэл нууц үг буруу байна!";
-    errorDiv.classList.remove('hidden');
-  }
-}
-
-function logout() {
-  isAdmin = false;
-  localStorage.removeItem("isAdmin");
-  localStorage.removeItem("userInfo");
-  renderProfile();
-}
-
-function renderProfile() {
-  const container = document.getElementById('profile-content');
-  const user = JSON.parse(localStorage.getItem("userInfo") || "null");
-
-  if (user && user.email === "admin@nomadic.mn") {
-    isAdmin = true;
-    localStorage.setItem("isAdmin", "true");
-  } else {
-    isAdmin = false;
-    localStorage.removeItem("isAdmin");
-  }
-
-  if (isAdmin && user) {
-    container.innerHTML = `
-      <div class="text-center space-y-4">
-        <p class="text-lg text-green-700 font-semibold">Сайн байна уу, ${user.email}!</p>
-        <p class="text-sm text-gray-600">Утас: ${user.phone}</p>
-        <p class="text-sm text-gray-600">Нэвтэрсэн: ${new Date(user.loginTime).toLocaleString()}</p>
-        <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded">Гарах</button>
-      </div>`;
-  } else {
-    container.innerHTML = `
-      <form onsubmit="login(event)" class="space-y-4 max-w-md mx-auto mt-4">
-        <input id="login-email" type="email" placeholder="Имэйл" class="w-full p-2 border rounded text-black" required>
-        <input id="login-phone" type="tel" placeholder="Утас (8 оронтой)" class="w-full p-2 border rounded text-black" required>
-        <input id="login-password" type="password" placeholder="Нууц үг (6+ тэмдэгт)" class="w-full p-2 border rounded text-black" required>
-        <button type="submit" class="bg-gray-700 text-white px-4 py-2 rounded">Нэвтрэх</button>
-      </form>
-      <div id="login-error" class="hidden mt-4 text-center text-red-600 font-semibold"></div>`;
-  }
-}
-
-function renderAdminUsers() {
-  const list = document.getElementById('user-list');
-  if (!list) return;
-  const users = JSON.parse(localStorage.getItem("allUsers") || "[]");
-  list.innerHTML = users.map(u => `<li>- ${u.email}, ${u.phone}, ${new Date(u.loginTime).toLocaleString()}</li>`).join('');
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  renderProfile();
-  if (isAdmin) renderAdminUsers();
-});
-
-  </script>
-</body>
-</html>
