@@ -86,24 +86,8 @@ updateRatingBars(storedRatings);
 
       // localStorage.setItem('userRating', rating); // Хэрэв хадгалах бол
     });
-  });
-  function updateRatingBars(ratings) {
-  const counts = [0, 0, 0, 0, 0]; // 5, 4, 3, 2, 1 одны тоо
-  ratings.forEach(r => counts[r - 1]++); // 5->index 4, 1->index 0
-
-  const total = ratings.length;
-  const sum = ratings.reduce((a, b) => a + b, 0);
-  const avg = total ? (sum / total).toFixed(1) : "0.0";
-
-  document.getElementById("rating-value").textContent = avg;
-
-  counts.forEach((count, i) => {
-    const level = 5 - i;
-    const percent = total ? (count / total) * 100 : 0;
-    document.getElementById(`count-${level}`).textContent = count;
-    document.getElementById(`bar-${level}`).style.width = `${percent}%`;
-  });
-  }
+  });function
+  
 
 const storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");
 updateRatingBars(storedRatings);
@@ -120,7 +104,28 @@ updateRatingBars(storedRatings);
   <!-- Сэтгэгдэл жагсаалт -->
   <div id="comment-list" class="mt-4 space-y-2"></div>
 </div>
-      <script>
+ function updateRatingBars(ratings) {
+  const counts = [0, 0, 0, 0, 0];
+
+  ratings.forEach(r => {
+    const n = parseInt(r);
+    if (n >= 1 && n <= 5) counts[n - 1]++;
+  });
+
+  const total = ratings.length;
+  const sum = ratings.reduce((a, b) => a + parseInt(b), 0);
+  const avg = total ? (sum / total).toFixed(1) : "0.0";
+
+  document.getElementById("rating-value").textContent = avg;
+
+  counts.forEach((count, i) => {
+    const level = 5 - i;
+    const percent = total ? (count / total) * 100 : 0;
+    document.getElementById(`count-${level}`).textContent = count;
+    document.getElementById(`bar-${level}`).style.width = `${percent}%`;
+  });
+}
+<script>
   const commentForm = document.getElementById('comment-form');
   const nameInput = document.getElementById('comment-name');
   const textInput = document.getElementById('comment-text');
