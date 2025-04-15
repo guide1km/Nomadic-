@@ -10,8 +10,9 @@
       max-width: 100%;
       min-width: 0;
     }
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mongolian&display=swap" rel="stylesheet">
+    
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mongolian&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
   <main class="max-w-2xl mx-auto px-4 py-10 space-y-8"><!-- Title -->
@@ -206,6 +207,7 @@ commentForm.addEventListener('submit', e => {
   comments.push(comment);
   localStorage.setItem('comments', JSON.stringify(comments));
   renderComments();
+  alert("Сэтгэгдэл амжилттай илгээгдлээ!");
   commentForm.reset();
 });
 
