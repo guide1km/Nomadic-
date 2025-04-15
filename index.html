@@ -16,6 +16,11 @@
   <main class="max-w-2xl mx-auto px-4 py-10 space-y-8"><!-- Title -->
 <h1 class="text-3xl font-bold text-center text-blue-700">Nomadic Үнэлгээ & Сэтгэгдэл</h1>
 
+<!-- Admin Reset Section (visible only for admin) -->
+<div id="admin-reset" class="text-center hidden">
+  <button onclick="resetRatings()" class="text-sm text-red-600 underline">Үнэлгээг 0-оос эхлүүлэх</button>
+</div>
+
 <!-- Rating Section -->
 <section id="rating-section" class="bg-white rounded-xl shadow p-6">
   <h2 class="text-xl font-semibold mb-4 text-center">Үнэлгээ өгөх</h2>
@@ -83,8 +88,22 @@
   <script>
     const stars = document.querySelectorAll('#rating-stars span');
     const ratingValue = document.getElementById('rating-value');
-    let userRated = localStorage.getItem('userRated');
-    let storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");function updateRatingBars(ratings) {
+    const resetBtn = document.getElementById('admin-reset');// Simulate Admin Login (e.g., localStorage flag)
+const isAdmin = localStorage.getItem('isAdmin') === 'true';
+if (isAdmin) resetBtn.classList.remove('hidden');
+
+function resetRatings() {
+  if (confirm("Та үнэлгээг бүрэн 0 болгох уу?")) {
+    localStorage.removeItem("ratings");
+    localStorage.removeItem("userRated");
+    location.reload();
+  }
+}
+
+let userRated = localStorage.getItem('userRated');
+let storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");
+
+function updateRatingBars(ratings) {
   const total = ratings.length;
   const sum = ratings.reduce((a, b) => a + b, 0);
   const avg = total ? (sum / total).toFixed(1) : "0.0";
