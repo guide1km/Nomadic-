@@ -233,49 +233,6 @@
 </script>
 </body>
 </html>
-      <!-- Сэтгэгдэл үлдээх хэсэг -->
-<div class="mt-6">
-  <h2 class="text-xl font-semibold mb-2 text-center">Сэтгэгдэл үлдээх</h2>
-  <form id="comment-form" class="space-y-2">
-    <input id="comment-name" type="text" placeholder="Нэр..." class="w-full p-2 border rounded" required>
-    <textarea id="comment-text" rows="3" placeholder="Сэтгэгдэл бичнэ үү..." class="w-full p-2 border rounded" required></textarea>
-    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Илгээх</button>
-  </form>
-
-<script>
-  const commentForm = document.getElementById('comment-form');
-  const nameInput = document.getElementById('comment-name');
-  const textInput = document.getElementById('comment-text');
-  const commentList = document.getElementById('comment-list');
-
-  // хадгалсан сэтгэгдлүүдийг ачаална
-  const comments = JSON.parse(localStorage.getItem('comments') || "[]");
-  renderComments();
-
-  commentForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = nameInput.value.trim();
-    const text = textInput.value.trim();
-    if (!name || !text) return;
-
-    const comment = { name, text, time: new Date().toLocaleString() };
-    comments.push(comment);
-    localStorage.setItem('comments', JSON.stringify(comments));
-
-    nameInput.value = '';
-    textInput.value = '';
-    renderComments();
-  });
-
-  function renderComments() {
-    commentList.innerHTML = comments.map(c =>
-      `<div class="p-2 border rounded bg-gray-50">
-         <div class="font-semibold">${c.name}</div>
-         <div class="text-sm text-gray-600">${c.time}</div>
-         <div>${c.text}</div>
-       </div>`
-    ).join('');
-  }
       </script>
     </section>
     <section id="categories" class="tab-section">
