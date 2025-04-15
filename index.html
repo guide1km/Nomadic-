@@ -88,10 +88,14 @@ updateRatingBars(storedRatings);
     });
   });
   function updateRatingBars(ratings) {
-  const counts = [0, 0, 0, 0, 0];
-  ratings.forEach(r => counts[r - 1]++);
+  const counts = [0, 0, 0, 0, 0]; // 5, 4, 3, 2, 1 одны тоо
+  ratings.forEach(r => counts[r - 1]++); // 5->index 4, 1->index 0
 
   const total = ratings.length;
+  const sum = ratings.reduce((a, b) => a + b, 0);
+  const avg = total ? (sum / total).toFixed(1) : "0.0";
+
+  document.getElementById("rating-value").textContent = avg;
 
   counts.forEach((count, i) => {
     const level = 5 - i;
@@ -99,7 +103,7 @@ updateRatingBars(storedRatings);
     document.getElementById(`count-${level}`).textContent = count;
     document.getElementById(`bar-${level}`).style.width = `${percent}%`;
   });
-}
+  }
 
 const storedRatings = JSON.parse(localStorage.getItem("ratings") || "[]");
 updateRatingBars(storedRatings);
