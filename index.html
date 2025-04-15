@@ -214,5 +214,38 @@ commentForm.addEventListener('submit', e => {
 renderComments();
 
   </script>
+
+<!-- Navigation Icons Row with Scroll-to-Section -->
+<nav class="fixed bottom-0 inset-x-0 bg-white shadow-md border-t flex justify-around py-2 z-50 text-xs">
+  <button onclick="scrollToSection('rating-section')" class="flex flex-col items-center text-blue-600 hover:text-blue-600 active:scale-95 transition-transform duration-150">
+    <span class="text-xl">🏡</span>
+    <span>Нүүр</span>
+  </button>
+  <button onclick="scrollToSection('category-section')" class="flex flex-col items-center text-blue-600 hover:text-blue-600 active:scale-95 transition-transform duration-150">
+    <span class="text-xl">🧳</span>
+    <span>Ангилал</span>
+  </button>
+  <button onclick="scrollToSection('order-section')" class="flex flex-col items-center text-blue-600 hover:text-blue-600 active:scale-95 transition-transform duration-150">
+    <span class="text-xl">🛒</span>
+    <span>Захиалга</span>
+  </button>
+  <button onclick="scrollToSection('favorites-section')" class="flex flex-col items-center text-red-500 hover:text-red-600 active:scale-95 transition-transform duration-150">
+    <span class="text-xl">❤️</span>
+    <span>Дуртай</span>
+  </button>
+  <button onclick="scrollToSection('profile-section')" class="flex flex-col items-center text-gray-700 hover:text-blue-600 active:scale-95 transition-transform duration-150">
+    <span class="text-xl">👤</span>
+    <span>Профайл</span>
+  </button>
+</nav>
+
+
+<script>
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
 </body>
 </html>
